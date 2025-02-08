@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>io.github.lambdua</groupId>
+    <groupId>io.github.ke</groupId>
     <artifactId>example</artifactId>
     <version>0.22.92</version>
     <name>example</name>
@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.lambdua</groupId>
+            <groupId>io.github.ke</groupId>
             <artifactId>service</artifactId>
             <version>0.22.92</version>
         </dependency>
