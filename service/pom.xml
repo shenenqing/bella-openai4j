@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.ke</groupId>
         <artifactId>openai-java</artifactId>
-        <version>0.22.92</version>
+        <version>0.23.1</version>
     </parent>
     <packaging>jar</packaging>
 
