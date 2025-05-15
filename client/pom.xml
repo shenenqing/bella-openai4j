@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.ke</groupId>
+        <groupId>io.github.bella-top</groupId>
         <artifactId>openai-java</artifactId>
         <version>0.23.1</version>
     </parent>
@@ -18,7 +18,7 @@
     <dependencies>
         <!-- API Module Dependency -->
         <dependency>
-            <groupId>io.github.ke</groupId>
+            <groupId>io.github.bella-top</groupId>
             <artifactId>api</artifactId>
             <version>${project.version}</version>
         </dependency>
