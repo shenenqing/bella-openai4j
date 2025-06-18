@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.bella-top</groupId>
+        <groupId>top.bella</groupId>
         <artifactId>openai-java</artifactId>
         <version>0.23.1</version>
     </parent>
     <packaging>jar</packaging>
 
 
-    <artifactId>client</artifactId>
-    <name>client</name>
+    <artifactId>openai-client</artifactId>
+    <name>openai-client</name>
     <description>Basic retrofit client for OpenAI's GPT APIs</description>
 
     <dependencies>

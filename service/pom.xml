@@ -4,20 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.bella-top</groupId>
+        <groupId>top.bella</groupId>
         <artifactId>openai-java</artifactId>
         <version>0.23.1</version>
     </parent>
     <packaging>jar</packaging>
 
-    <artifactId>service</artifactId>
-    <name>service</name>
+    <artifactId>openai-service</artifactId>
+    <name>openai-service</name>
     <description>Basic service to create and use an OpenAI retrofit client</description>
 
     <dependencies>
         <dependency>
-            <groupId>io.github.bella-top</groupId>
-            <artifactId>client</artifactId>
+            <groupId>top.bella</groupId>
+            <artifactId>openai-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
