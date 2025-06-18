@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.bella-top</groupId>
+        <groupId>top.bella</groupId>
         <artifactId>openai-java</artifactId>
         <version>0.23.1</version>
     </parent>
     <packaging>jar</packaging>
-    <artifactId>api</artifactId>
-    <name>api</name>
+    <artifactId>openai-api</artifactId>
+    <name>openai-api</name>
     <description>Basic java objects for the OpenAI GPT APIs</description>
 
     <properties>
