@@ -182,4 +182,11 @@ public class ChatCompletionRequest {
      * Parameters for audio output. Required when audio output is requested with modalities: ["audio"].
      */
     Audio audio;
+
+    /**
+     * Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+     * Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+     */
+    @JsonProperty("reasoning_effort")
+    private String reasoningEffort;
 }

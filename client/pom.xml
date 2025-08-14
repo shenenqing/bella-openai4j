@@ -6,7 +6,7 @@
     <parent>
         <groupId>top.bella</groupId>
         <artifactId>openai-java</artifactId>
-        <version>0.23.1</version>
+        <version>0.23.2</version>
     </parent>
     <packaging>jar</packaging>
 
@@ -18,8 +18,8 @@
     <dependencies>
         <!-- API Module Dependency -->
         <dependency>
-            <groupId>io.github.bella-top</groupId>
-            <artifactId>api</artifactId>
+            <groupId>top.bella</groupId>
+            <artifactId>openai-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

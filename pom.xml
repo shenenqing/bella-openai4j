@@ -5,7 +5,7 @@
 
     <groupId>top.bella</groupId>
     <artifactId>openai-java</artifactId>
-    <version>0.23.1</version>
+    <version>0.23.2</version>
     <packaging>pom</packaging>
     <description>openai java 版本</description>
     <name>openai-java</name>
@@ -34,18 +34,6 @@
         <url>https://github.com/bella-top/bella-opai4j/tree/main</url>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://central.sonatype.com/maven/v1</url>
-        </repository>
-        <snapshotRepository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://central.sonatype.com/maven/v1</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <properties>
         <java.version>1.8</java.version>
@@ -81,6 +69,19 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- 禁用默认maven-deploy-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
