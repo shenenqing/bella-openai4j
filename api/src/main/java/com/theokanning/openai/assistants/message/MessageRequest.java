@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.theokanning.openai.assistants.thread.Attachment;
@@ -40,6 +41,12 @@ public class MessageRequest {
     @JsonSerialize(using = ContentSerializer.class)
     Object content;
 
+    /**
+     * The contents of the reasoning message.
+     */
+    @JsonProperty("reasoning_content")
+    String reasoningContent;
+
 
     /**
      * A list of files attached to the message, and the tools they should be added to.
@@ -65,6 +72,13 @@ public class MessageRequest {
         private List<Attachment> attachments;
 
         private Map<String, String> metadata;
+
+        private String reasoningContent;
+
+        public MessageRequestBuilder reasoningContent(String reasoningContent) {
+            this.reasoningContent = reasoningContent;
+            return this;
+        }
 
 
         /**
@@ -187,6 +201,7 @@ public class MessageRequest {
             return this;
         }
 
+
         /**
          * set the attachments of the message,will override the previous attachments
          */
@@ -224,7 +239,7 @@ public class MessageRequest {
         }
 
         public MessageRequest build() {
-            return new MessageRequest(role, content, attachments, metadata);
+            return new MessageRequest(role, content, reasoningContent, attachments, metadata);
         }
     }
 }

@@ -79,6 +79,12 @@ public class Message {
     List<MessageContent> content;
 
     /**
+     * The contents of the reasoning message.
+     */
+    @JsonProperty("reasoning_content")
+    String reasoningContent;
+
+    /**
      * If applicable, the ID of the assistant that authored this message.
      */
     @JsonProperty("assistant_id")

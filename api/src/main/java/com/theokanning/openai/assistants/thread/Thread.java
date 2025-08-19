@@ -47,4 +47,7 @@ public class Thread {
      * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
      */
     Map<String, String> metadata;
+
+    Map<String, Object> environment;
 }
+

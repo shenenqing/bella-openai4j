@@ -93,5 +93,7 @@ public class Assistant {
     @JsonDeserialize(using = ChatResponseFormat.ChatResponseFormatDeserializer.class)
     ChatResponseFormat responseFormat;
 
+    @JsonProperty("file_ids")
+    private List<String> fileIds;
 
 }
