@@ -145,4 +145,7 @@ public class Run {
      */
     @JsonProperty(value = "tool_resources")
     ToolResources toolResources;
+
+    @JsonProperty(value = "file_ids")
+    ToolFiles fileIds;
 }
