@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.message.content;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,7 @@ public class Delta {
     String role;
 
     List<DeltaContent> content;
+
+    @JsonProperty("reasoning_content")
+    String reasoningContent;
 }

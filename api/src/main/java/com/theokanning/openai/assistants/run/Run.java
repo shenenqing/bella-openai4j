@@ -148,4 +148,6 @@ public class Run {
 
     @JsonProperty(value = "file_ids")
     ToolFiles fileIds;
+
+    String user;
 }
