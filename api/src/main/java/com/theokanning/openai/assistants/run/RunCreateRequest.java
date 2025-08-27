@@ -117,4 +117,11 @@ public class RunCreateRequest {
     @JsonSerialize(using = ChatResponseFormat.ChatResponseFormatSerializer.class)
     @JsonDeserialize(using = ChatResponseFormat.ChatResponseFormatDeserializer.class)
     ChatResponseFormat responseFormat;
+
+    /**
+     * Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+     * Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+     */
+    @JsonProperty("reasoning_effort")
+    private String reasoningEffort;
 }

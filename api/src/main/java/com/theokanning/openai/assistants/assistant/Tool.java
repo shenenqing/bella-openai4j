@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.assistant;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -256,11 +257,13 @@ public interface Tool {
      * Function Definition
      */
     @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     class FunctionDefinition {
         @NotBlank
         private String name;
         private String description;
         private Map<String, Object> parameters;
+        private Boolean strict;
     }
 
     /**

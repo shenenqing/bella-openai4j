@@ -95,4 +95,7 @@ public class AssistantRequest {
     @JsonProperty("file_ids")
     private List<String> fileIds;
 
+    @JsonProperty("reasoning_effort")
+    private String reasoningEffort;
+
 }

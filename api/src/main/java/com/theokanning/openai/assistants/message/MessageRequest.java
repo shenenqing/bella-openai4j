@@ -61,6 +61,8 @@ public class MessageRequest {
      */
     Map<String, String> metadata;
 
+    String runId;
+
     public static MessageRequestBuilder builder() {
         return new MessageRequestBuilder();
     }
@@ -74,6 +76,8 @@ public class MessageRequest {
         private Map<String, String> metadata;
 
         private String reasoningContent;
+
+        private String runId;
 
         public MessageRequestBuilder reasoningContent(String reasoningContent) {
             this.reasoningContent = reasoningContent;
@@ -119,6 +123,12 @@ public class MessageRequest {
             this.content = contents;
             return this;
         }
+
+        public MessageRequestBuilder runId(String runId) {
+            this.runId = runId;
+            return this;
+        }
+
 
         /**
          * add multi content to the current message
@@ -239,7 +249,7 @@ public class MessageRequest {
         }
 
         public MessageRequest build() {
-            return new MessageRequest(role, content, reasoningContent, attachments, metadata);
+            return new MessageRequest(role, content, reasoningContent, attachments, metadata, runId);
         }
     }
 }
