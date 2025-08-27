@@ -42,6 +42,10 @@ import com.theokanning.openai.image.ImageResult;
 import com.theokanning.openai.model.Model;
 import com.theokanning.openai.moderation.ModerationRequest;
 import com.theokanning.openai.moderation.ModerationResult;
+import com.theokanning.openai.queue.Register;
+import com.theokanning.openai.queue.Put;
+import com.theokanning.openai.queue.Take;
+import com.theokanning.openai.queue.Task;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -50,6 +54,7 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface OpenAiApi {
@@ -368,6 +373,22 @@ public interface OpenAiApi {
 
     @GET("batches")
     Single<OpenAiResponse<Batch>> listBatches(@QueryMap Map<String, Object> filterRequest);
+
+    // Queue operations
+    @POST("v1/queue/register")
+    Single<String> registerQueue(@Body Register register);
+
+    @POST("v1/queue/put")
+    Single<Object> putTask(@Body Put put);
+
+    @POST("v1/queue/take")
+    Single<Map<String, List<Task>>> takeTasks(@Body Take take);
+
+    @POST("v1/queue/{task_id}/cancel")
+    Single<String> cancelTask(@Path("task_id") String taskId);
+
+    @POST("v1/queue/{task_id}/complete")
+    Single<String> completeTask(@Path("task_id") String taskId, @Body Map<String, Object> data);
 
 }
 
