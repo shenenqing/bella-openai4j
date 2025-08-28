@@ -51,6 +51,10 @@ import com.theokanning.openai.image.ImageResult;
 import com.theokanning.openai.model.Model;
 import com.theokanning.openai.moderation.ModerationRequest;
 import com.theokanning.openai.moderation.ModerationResult;
+import com.theokanning.openai.queue.Put;
+import com.theokanning.openai.queue.Register;
+import com.theokanning.openai.queue.Take;
+import com.theokanning.openai.queue.Task;
 import com.theokanning.openai.service.assistant_stream.AssistantResponseBodyCallback;
 import com.theokanning.openai.service.assistant_stream.AssistantSSE;
 import io.reactivex.BackpressureStrategy;
@@ -743,6 +747,27 @@ public class OpenAiService {
 
     public Batch cancelBatch(String batchId) {
         return execute(api.cancelBatch(batchId));
+    }
+
+    // Queue operations
+    public String registerQueue(Register register) {
+        return execute(api.registerQueue(register));
+    }
+
+    public Object putTask(Put put) {
+        return execute(api.putTask(put));
+    }
+
+    public Map<String, List<Task>> takeTasks(Take take) {
+        return execute(api.takeTasks(take));
+    }
+
+    public String cancelTask(String taskId) {
+        return execute(api.cancelTask(taskId));
+    }
+
+    public String completeTask(String taskId, Map<String, Object> data) {
+        return execute(api.completeTask(taskId, data));
     }
 
     public static OpenAiApi buildApi(String token, Duration timeout, String baseUrl) {
