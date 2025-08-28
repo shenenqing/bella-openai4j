@@ -37,4 +37,27 @@ public class Usage {
      */
     @JsonProperty("completion_tokens_details")
     CompletionTokensDetails completionTokensDetails;
+
+    public void add(Usage usage) {
+        if(usage == null) {
+            return;
+        }
+        this.promptTokens += usage.getPromptTokens();
+        this.completionTokens += usage.getCompletionTokens();
+        this.totalTokens += usage.getTotalTokens();
+        if(usage.getPromptTokensDetails() != null) {
+            if(this.promptTokensDetails == null) {
+                this.promptTokensDetails = usage.getPromptTokensDetails();
+            } else {
+                this.promptTokensDetails.add(usage.getPromptTokensDetails());
+            }
+        }
+        if(usage.getCompletionTokensDetails() != null) {
+            if(this.completionTokensDetails == null) {
+                this.completionTokensDetails = usage.getCompletionTokensDetails();
+            } else {
+                this.completionTokensDetails.add(usage.getCompletionTokensDetails());
+            }
+        }
+    }
 }

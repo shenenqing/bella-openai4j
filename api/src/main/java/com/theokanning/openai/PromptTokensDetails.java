@@ -19,4 +19,12 @@ public class PromptTokensDetails {
      */
     @JsonProperty("audio_tokens")
     long audioTokens;
+
+    public void add(PromptTokensDetails details) {
+        if(details == null) {
+            return;
+        }
+        this.cachedTokens += details.getCachedTokens();
+        this.audioTokens += details.getAudioTokens();
+    }
 }

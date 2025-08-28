@@ -20,4 +20,14 @@ public class CompletionTokensDetails {
 
     @JsonProperty("rejected_prediction_tokens")
     long rejectedPredictionTokens;
+
+    public void add(CompletionTokensDetails details) {
+        if(details == null) {
+            return;
+        }
+        this.reasoningTokens += details.getReasoningTokens();
+        this.audioTokens += details.getAudioTokens();
+        this.acceptedPredictionTokens += details.getAcceptedPredictionTokens();
+        this.rejectedPredictionTokens += details.getRejectedPredictionTokens();
+    }
 }
