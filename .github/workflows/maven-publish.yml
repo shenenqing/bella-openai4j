@@ -1,17 +1,20 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-
-name: Publish package to the Maven Central Repository
+name: Auto Publish to Maven Central
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ main ]
+
 jobs:
-  publish:
+  check-and-publish:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Maven Central Repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Set up JDK 8
         uses: actions/setup-java@v4
         with:
           java-version: '8'
@@ -21,11 +24,114 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
-      - name: set publish version
-        run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
-      - name: Publish package
+          
+      - name: Get current version from pom.xml
+        id: current-version
+        run: |
+          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+          
+      - name: Get latest tag version
+        id: latest-tag
+        run: |
+          # Get all tags starting with 'v' and sort them
+          LATEST_TAG=$(git tag -l 'v*' | sort -V | tail -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG_VERSION="0.0.0"
+          else
+            LATEST_TAG_VERSION=${LATEST_TAG#v}
+          fi
+          echo "tag-version=$LATEST_TAG_VERSION" >> $GITHUB_OUTPUT
+          echo "Latest tag version: $LATEST_TAG_VERSION"
+          
+      - name: Compare versions and decide if publish
+        id: version-check
+        run: |
+          CURRENT_VERSION="${{ steps.current-version.outputs.version }}"
+          TAG_VERSION="${{ steps.latest-tag.outputs.tag-version }}"
+          
+          # Function to compare versions
+          version_gt() {
+            test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
+          }
+          
+          if version_gt "$CURRENT_VERSION" "$TAG_VERSION"; then
+            echo "should-publish=true" >> $GITHUB_OUTPUT
+            echo "Current version $CURRENT_VERSION is greater than tag version $TAG_VERSION - will publish"
+          else
+            echo "should-publish=false" >> $GITHUB_OUTPUT
+            echo "Current version $CURRENT_VERSION is not greater than tag version $TAG_VERSION - skip publish"
+          fi
+          
+      - name: Build and test
+        if: steps.version-check.outputs.should-publish == 'true'
+        run: mvn clean compile test
+        
+      - name: Publish to Maven Central
+        if: steps.version-check.outputs.should-publish == 'true'
         run: mvn -P release --batch-mode deploy -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+          
+      - name: Create tag and release
+        if: steps.version-check.outputs.should-publish == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.current-version.outputs.version }}"
+          TAG_NAME="v$VERSION"
+          
+          # Get commits since last release
+          LATEST_TAG=$(git tag -l 'v*' | sort -V | tail -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            COMMITS=$(git log --oneline --pretty=format:"- %s (%h)")
+          else
+            COMMITS=$(git log --oneline ${LATEST_TAG}..HEAD --pretty=format:"- %s (%h)")
+          fi
+          
+          # Create release notes with Maven dependencies
+          RELEASE_NOTES=$(cat <<EOF
+          # Release $VERSION
+          
+          ## Recent Changes
+          $COMMITS
+          
+          ## Maven Dependencies
+          
+          \`\`\`xml
+          <!-- Main API -->
+          <dependency>
+              <groupId>top.bella</groupId>
+              <artifactId>openai-java-api</artifactId>
+              <version>$VERSION</version>
+          </dependency>
+          
+          <!-- HTTP Client -->
+          <dependency>
+              <groupId>top.bella</groupId>
+              <artifactId>openai-java-client</artifactId>
+              <version>$VERSION</version>
+          </dependency>
+          
+          <!-- Service Layer -->
+          <dependency>
+              <groupId>top.bella</groupId>
+              <artifactId>openai-java-service</artifactId>
+              <version>$VERSION</version>
+          </dependency>
+          \`\`\`
+          EOF
+          )
+          
+          # Create tag
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
+          
+          # Create release
+          gh release create "$TAG_NAME" \
+            --title "Release $VERSION" \
+            --notes "$RELEASE_NOTES" \
+            --latest
