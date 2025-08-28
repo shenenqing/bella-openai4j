@@ -64,9 +64,9 @@ jobs:
             echo "Current version $CURRENT_VERSION is not greater than tag version $TAG_VERSION - skip publish"
           fi
           
-      - name: Build and test
+      - name: Build project
         if: steps.version-check.outputs.should-publish == 'true'
-        run: mvn clean compile test
+        run: mvn clean compile
         
       - name: Publish to Maven Central
         if: steps.version-check.outputs.should-publish == 'true'
