@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public interface Tool {
     class Retrieval implements Tool {
         private String type = "retrieval";
         @JsonProperty("default_metadata")
-        private DefaultMetadata defaultMetadata;
+        private DefaultMetadata defaultMetadata = new DefaultMetadata();
 
         @Override
         public String getType() {
@@ -76,7 +77,7 @@ public interface Tool {
     class Rag implements Tool {
         private String type = "rag";
         @JsonProperty("default_metadata")
-        private DefaultMetadata defaultMetadata;
+        private DefaultMetadata defaultMetadata = new DefaultMetadata();
 
         @Override
         public String getType() {
@@ -277,10 +278,10 @@ public interface Tool {
         @JsonProperty("empty_recall_reply")
         private String emptyRecallReply = "";
         @JsonProperty("metadata_filter")
-        private List<Map<String, Object>> metadataFilter;
+        private List<Map<String, Object>> metadataFilter = new ArrayList<>();
         @JsonProperty("retrieve_mode")
         private String retrieveMode = "fusion";
-        private List<Map<String, Object>> plugins;
+        private List<Map<String, Object>> plugins = new ArrayList<>();
         private String instructions = "";
     }
 }
