@@ -51,6 +51,7 @@ import com.theokanning.openai.image.ImageResult;
 import com.theokanning.openai.model.Model;
 import com.theokanning.openai.moderation.ModerationRequest;
 import com.theokanning.openai.moderation.ModerationResult;
+import com.theokanning.openai.queue.EventbusConfig;
 import com.theokanning.openai.queue.Put;
 import com.theokanning.openai.queue.Register;
 import com.theokanning.openai.queue.Take;
@@ -752,6 +753,10 @@ public class OpenAiService {
     // Queue operations
     public String registerQueue(Register register) {
         return execute(api.registerQueue(register));
+    }
+
+    public EventbusConfig getEventbus() {
+        return execute(api.getEventbus());
     }
 
     public Object putTask(Put put) {
