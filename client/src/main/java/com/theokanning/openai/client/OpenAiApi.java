@@ -42,6 +42,7 @@ import com.theokanning.openai.image.ImageResult;
 import com.theokanning.openai.model.Model;
 import com.theokanning.openai.moderation.ModerationRequest;
 import com.theokanning.openai.moderation.ModerationResult;
+import com.theokanning.openai.queue.EventbusConfig;
 import com.theokanning.openai.queue.Register;
 import com.theokanning.openai.queue.Put;
 import com.theokanning.openai.queue.Take;
@@ -377,6 +378,9 @@ public interface OpenAiApi {
     // Queue operations
     @POST("v1/queue/register")
     Single<String> registerQueue(@Body Register register);
+
+    @GET("v1/queue/eventbus")
+    Single<EventbusConfig> getEventbus();
 
     @POST("v1/queue/put")
     Single<Object> putTask(@Body Put put);
