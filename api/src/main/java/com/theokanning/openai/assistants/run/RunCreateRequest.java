@@ -127,4 +127,6 @@ public class RunCreateRequest {
 
     @JsonProperty("save_message")
     private Boolean saveMessage;
+
+    private String user;
 }
