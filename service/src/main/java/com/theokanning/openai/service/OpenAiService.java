@@ -237,6 +237,10 @@ public class OpenAiService {
         return execute(api.retrieveFileContent(fileId));
     }
 
+    public ResponseBody retrieveDomTreeContent(String fileId) {
+        return execute(api.retrieveDomTreeContent(fileId));
+    }
+
     public FineTuningJob createFineTuningJob(FineTuningJobRequest request) {
         return execute(api.createFineTuningJob(request));
     }

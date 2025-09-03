@@ -124,4 +124,7 @@ public class RunCreateRequest {
      */
     @JsonProperty("reasoning_effort")
     private String reasoningEffort;
+
+    @JsonProperty("save_message")
+    private Boolean saveMessage;
 }

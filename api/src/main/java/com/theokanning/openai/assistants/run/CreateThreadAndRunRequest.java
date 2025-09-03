@@ -123,4 +123,7 @@ public class CreateThreadAndRunRequest {
      */
     @JsonProperty("reasoning_effort")
     private String reasoningEffort;
+
+    @JsonProperty("save_message")
+    private Boolean saveMessage;
 }

@@ -66,6 +66,4 @@ public class FileTest {
         DeleteResult result = service.deleteFile(fileId);
         assertTrue(result.isDeleted());
     }
-
-
 }
