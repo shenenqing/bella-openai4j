@@ -1,12 +1,16 @@
 package com.theokanning.openai.assistants.assistant;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.assistants.IUssrRequest;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +20,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AssistantRequest {
+public class AssistantRequest implements IUssrRequest {
 
     /**
      * ID of the model to use
@@ -93,9 +97,11 @@ public class AssistantRequest {
     Map<String, String> metadata;
 
     @JsonProperty("file_ids")
-    private List<String> fileIds;
+    List<String> fileIds;
 
     @JsonProperty("reasoning_effort")
-    private String reasoningEffort;
+    String reasoningEffort;
+
+    String user;
 
 }

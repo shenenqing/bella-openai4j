@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.assistants.IUssrRequest;
 import com.theokanning.openai.assistants.assistant.Tool;
 import com.theokanning.openai.assistants.assistant.ToolResources;
 import com.theokanning.openai.assistants.thread.ThreadRequest;
@@ -27,7 +28,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateThreadAndRunRequest {
+public class CreateThreadAndRunRequest implements IUssrRequest {
 
     @JsonProperty("assistant_id")
     private String assistantId;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.assistants.IUssrRequest;
 import com.theokanning.openai.assistants.assistant.Tool;
 import com.theokanning.openai.assistants.message.MessageRequest;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
@@ -19,7 +20,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RunCreateRequest {
+public class RunCreateRequest implements IUssrRequest {
     @JsonProperty("assistant_id")
     String assistantId;
 
@@ -123,10 +124,10 @@ public class RunCreateRequest {
      * Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
      */
     @JsonProperty("reasoning_effort")
-    private String reasoningEffort;
+    String reasoningEffort;
 
     @JsonProperty("save_message")
-    private Boolean saveMessage;
+    Boolean saveMessage;
 
-    private String user;
+    String user;
 }
