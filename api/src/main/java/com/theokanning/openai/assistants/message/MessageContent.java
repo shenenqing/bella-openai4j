@@ -41,4 +41,15 @@ public class MessageContent {
     @JsonProperty("image_url")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     ImageUrl imageUrl;
+
+    public boolean empty() {
+        switch (type) {
+        case "image_file":
+            return imageFile == null;
+        case "image_url":
+            return imageUrl == null;
+        default:
+            return text == null || text.getValue() == null || text.getValue().trim().isEmpty();
+        }
+    }
 }

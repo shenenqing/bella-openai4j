@@ -1,6 +1,7 @@
 package com.theokanning.openai.assistants.run;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.IUssrRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubmitToolOutputsRequest {
+public class SubmitToolOutputsRequest implements IUssrRequest {
 
     Boolean stream;
 
@@ -29,6 +30,8 @@ public class SubmitToolOutputsRequest {
      */
     @JsonProperty("tool_outputs")
     private List<SubmitToolOutputRequestItem> toolOutputs;
+
+    String user;
 
 
     /**

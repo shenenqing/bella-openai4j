@@ -45,7 +45,6 @@ public interface Tool {
      */
     @Data
     class Function implements Tool {
-        private String type = "function";
         private FunctionDefinition function;
         @JsonProperty("is_final")
         private Boolean isFinal = false;
@@ -61,7 +60,6 @@ public interface Tool {
      */
     @Data
     class Retrieval implements Tool {
-        private String type = "retrieval";
         @JsonProperty("default_metadata")
         private DefaultMetadata defaultMetadata = new DefaultMetadata();
 
@@ -76,7 +74,6 @@ public interface Tool {
      */
     @Data
     class Rag implements Tool {
-        private String type = "rag";
         @JsonProperty("default_metadata")
         private DefaultMetadata defaultMetadata = new DefaultMetadata();
 
@@ -91,7 +88,6 @@ public interface Tool {
      */
     @Data
     class WebSearch implements Tool {
-        private String type = "web_search";
 
         @Override
         public String getType() {
@@ -104,7 +100,6 @@ public interface Tool {
      */
     @Data
     class WebSearchTavily implements Tool {
-        private String type = "web_search_tavily";
 
         @Override
         public String getType() {
@@ -117,7 +112,6 @@ public interface Tool {
      */
     @Data
     class WeatherSearch implements Tool {
-        private String type = "weather_search";
 
         @Override
         public String getType() {
@@ -130,7 +124,6 @@ public interface Tool {
      */
     @Data
     class ImgVision implements Tool {
-        private String type = "img_vision";
 
         @Override
         public String getType() {
@@ -143,7 +136,6 @@ public interface Tool {
      */
     @Data
     class ImgGenerate implements Tool {
-        private String type = "img_generate";
 
         @Override
         public String getType() {
@@ -156,7 +148,6 @@ public interface Tool {
      */
     @Data
     class Bar implements Tool {
-        private String type = "generate_bar";
 
         @Override
         public String getType() {
@@ -169,7 +160,6 @@ public interface Tool {
      */
     @Data
     class Line implements Tool {
-        private String type = "generate_line";
 
         @Override
         public String getType() {
@@ -182,7 +172,6 @@ public interface Tool {
      */
     @Data
     class Pie implements Tool {
-        private String type = "generate_pie";
 
         @Override
         public String getType() {
@@ -195,7 +184,6 @@ public interface Tool {
      */
     @Data
     class WikiSearch implements Tool {
-        private String type = "wiki_search";
 
         @Override
         public String getType() {
@@ -208,7 +196,6 @@ public interface Tool {
      */
     @Data
     class MyWeekReport implements Tool {
-        private String type = "my_week_report";
 
         @Override
         public String getType() {
@@ -221,7 +208,6 @@ public interface Tool {
      */
     @Data
     class WeekReportToMe implements Tool {
-        private String type = "week_report_to_me";
 
         @Override
         public String getType() {
@@ -234,7 +220,6 @@ public interface Tool {
      */
     @Data
     class ReadFiles implements Tool {
-        private String type = "read_files";
 
         @Override
         public String getType() {
@@ -247,7 +232,6 @@ public interface Tool {
      */
     @Data
     class WebCrawler implements Tool {
-        private String type = "web_crawler";
 
         @Override
         public String getType() {
