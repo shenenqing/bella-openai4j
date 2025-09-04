@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +95,7 @@ public class AssistantRequest implements IUssrRequest {
      * This can be useful for storing additional information about the object in a structured format.
      * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
      */
-    Map<String, String> metadata;
+    Map<String, String> metadata = new HashMap<>();
 
     @JsonProperty("file_ids")
     List<String> fileIds;

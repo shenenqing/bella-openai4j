@@ -19,7 +19,7 @@ public class Text {
     /**
      * The data that makes up the text.
      */
-    String value;
+    String value = "";
 
     /**
      * Text annotations that show additional details

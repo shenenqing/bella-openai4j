@@ -51,7 +51,7 @@ public class MessageRequest {
     /**
      * A list of files attached to the message, and the tools they should be added to.
      */
-    List<Attachment> attachments;
+    List<Attachment> attachments = new ArrayList<>();
 
 
     /**
@@ -59,7 +59,7 @@ public class MessageRequest {
      * This can be useful for storing additional information about the object in a structured format.
      * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
      */
-    Map<String, String> metadata;
+    Map<String, String> metadata = new HashMap<>();
 
     String runId;
 
