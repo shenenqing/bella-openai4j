@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.assistant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -38,6 +39,7 @@ import java.util.Map;
         @JsonSubTypes.Type(value = Tool.WebCrawler.class, name = "web_crawler")
 })
 public interface Tool {
+    @JsonIgnore
     String getType();
 
     /**
