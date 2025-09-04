@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.theokanning.openai.assistants.IUssrRequest;
 import com.theokanning.openai.assistants.assistant.Tool;
 import com.theokanning.openai.assistants.assistant.ToolResources;
+import com.theokanning.openai.assistants.message.MessageRequest;
 import com.theokanning.openai.assistants.thread.ThreadRequest;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,12 @@ public class CreateThreadAndRunRequest implements IUssrRequest {
 
 
     private Map<String, String> metadata;
+
+    /**
+     * Adds additional messages to the thread before creating the run.
+     */
+    @JsonProperty("additional_messages")
+    List<MessageRequest> additionalMessages;
 
 
     /**
