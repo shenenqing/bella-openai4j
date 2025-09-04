@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.run;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,13 +34,16 @@ public class ToolCall {
     String type;
 
     @JsonProperty("code_interpreter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     ToolCallCodeInterpreter codeInterpreter;
 
     /**
      * For now, this is always going to be an empty object.
      */
     @JsonProperty("file_search")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     ToolCallFileSearch fileSearch;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     ToolCallFunction function;
 }

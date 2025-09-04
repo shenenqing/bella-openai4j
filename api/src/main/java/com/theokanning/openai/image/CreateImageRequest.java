@@ -56,4 +56,9 @@ public class CreateImageRequest {
      * A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
      */
     String user;
+
+    /**
+     * doubao模型使用：是否生成水印
+     */
+    Boolean watermark;
 }
