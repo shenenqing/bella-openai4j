@@ -24,6 +24,12 @@ public class Task {
     private String taskId;
 
     /**
+     * Custom identifier provided by the user
+     */
+    @JsonProperty("custom_id")
+    private String customId;
+
+    /**
      * Access key for authentication
      */
     private String ak;
