@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.run_step;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.Usage;
 import com.theokanning.openai.common.LastError;
@@ -14,6 +15,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RunStep {
 
     private String id;

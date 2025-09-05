@@ -1,5 +1,6 @@
 package com.theokanning.openai.assistants.message;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.assistants.thread.Attachment;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Message {
     /**
      * The identifier, which can be referenced in API endpoints.
