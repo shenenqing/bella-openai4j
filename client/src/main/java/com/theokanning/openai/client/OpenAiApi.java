@@ -380,22 +380,22 @@ public interface OpenAiApi {
     Single<OpenAiResponse<Batch>> listBatches(@QueryMap Map<String, Object> filterRequest);
 
     // Queue operations
-    @POST("v1/queue/register")
+    @POST("queue/register")
     Single<String> registerQueue(@Body Register register);
 
-    @GET("v1/queue/eventbus")
+    @GET("queue/eventbus")
     Single<EventbusConfig> getEventbus();
 
-    @POST("v1/queue/put")
+    @POST("queue/put")
     Single<Object> putTask(@Body Put put);
 
-    @POST("v1/queue/take")
+    @POST("queue/take")
     Single<Map<String, List<Task>>> takeTasks(@Body Take take);
 
-    @POST("v1/queue/{task_id}/cancel")
+    @POST("queue/{task_id}/cancel")
     Single<String> cancelTask(@Path("task_id") String taskId);
 
-    @POST("v1/queue/{task_id}/complete")
+    @POST("queue/{task_id}/complete")
     Single<String> completeTask(@Path("task_id") String taskId, @Body Map<String, Object> data);
 
 }
