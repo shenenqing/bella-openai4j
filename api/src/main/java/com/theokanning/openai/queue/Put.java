@@ -28,10 +28,9 @@ public class Put {
     private String queue;
 
     /**
-     * The priority level of the task in the queue (default: 0)
+     * Used for fine-grained priority control in callback mode Lower numbers have higher priority (1 > 2 > 3) Currently not supported
      */
-    @Builder.Default
-    private Integer level = 0;
+    private Integer level;
 
     /**
      * The data payload to be processed

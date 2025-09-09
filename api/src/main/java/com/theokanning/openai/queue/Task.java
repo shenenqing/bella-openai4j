@@ -47,7 +47,8 @@ public class Task {
     /**
      * The priority level of the task in the queue
      */
-    private Integer level;
+    @Builder.Default
+    private Integer level = 0;
 
     /**
      * The data payload for the task
@@ -81,6 +82,12 @@ public class Task {
      */
     @JsonProperty("running_time")
     private long runningTime;
+
+    /**
+     * Timestamp when the task is set to expire
+     */
+    @JsonProperty("expire_time")
+    private long expireTime;
 
     /**
      * Timestamp when the task completed execution
@@ -117,6 +124,16 @@ public class Task {
      */
     @JsonIgnore
     public boolean isFinish() {
-        return "succeeded".equals(status) || "failed".equals(status) || "cancelled".equals(status);
+        return "succeeded".equals(status) || "failed".equals(status) || "cancelled".equals(status) || "timeout".equals(status);
+    }
+
+    /**
+     * Checks if the task has expired based on the current time and its expireTime
+     *
+     * @return true if the task is expired
+     */
+    @JsonIgnore
+    public boolean isExpire() {
+        return System.currentTimeMillis() > expireTime;
     }
 }
