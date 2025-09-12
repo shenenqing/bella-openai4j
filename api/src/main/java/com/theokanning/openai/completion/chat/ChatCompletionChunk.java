@@ -3,6 +3,7 @@ package com.theokanning.openai.completion.chat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.Usage;
+import com.theokanning.openai.common.LastError;
 import lombok.Data;
 
 import java.util.List;
@@ -61,4 +62,6 @@ public class ChatCompletionChunk {
      */
     @JsonIgnore
     String source;
+
+    LastError error;
 }

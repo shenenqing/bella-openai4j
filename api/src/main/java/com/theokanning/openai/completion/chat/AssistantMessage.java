@@ -1,6 +1,7 @@
 package com.theokanning.openai.completion.chat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.utils.JsonUtil;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,16 @@ public class AssistantMessage implements ChatMessage {
 
     // The contents of the reasoning message. 
     @JsonProperty("reasoning_content")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     String reasoningContent;
+
+    @JsonProperty("reasoning_content_signature")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    String reasoningContentSignature;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("redacted_reasoning_content")
+    private String redactedReasoningContent;
 
     //An optional name for the participant. Provides the model information to differentiate between participants of the same role.
     String name;
