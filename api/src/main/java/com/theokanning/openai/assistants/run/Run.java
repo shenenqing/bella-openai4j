@@ -156,4 +156,7 @@ public class Run {
 
     @JsonIgnore
     LocalDateTime createTime;
+
+    @JsonProperty("reasoning_effort")
+    private String reasoningEffort;
 }
