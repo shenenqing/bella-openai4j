@@ -30,6 +30,12 @@ public class Task {
     private String customId;
 
     /**
+     * Identifier for the batch this task belongs to
+     */
+    @JsonProperty("batch_id")
+    private String batchId;
+
+    /**
      * Access key for authentication
      */
     private String ak;
