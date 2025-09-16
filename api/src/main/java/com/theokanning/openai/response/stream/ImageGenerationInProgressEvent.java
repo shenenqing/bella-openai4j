@@ -1,0 +1,30 @@
+package com.theokanning.openai.response.stream;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * Event emitted when an image generation tool call is in progress.
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ImageGenerationInProgressEvent extends BaseStreamEvent {
+
+    /**
+     * The unique identifier of the image generation item being processed.
+     */
+    @JsonProperty("item_id")
+    private String itemId;
+
+    /**
+     * The index of the output item in the response's output array.
+     */
+    @JsonProperty("output_index")
+    private Integer outputIndex;
+
+    @Override
+    public String getType() {
+        return "response.image_generation_call.in_progress";
+    }
+}
