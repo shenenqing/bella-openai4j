@@ -49,7 +49,7 @@ public class AssistantRequest implements IUssrRequest {
      * There can be a maximum of 128 tools per assistant.
      * Tools can be of types code_interpreter, file_search, or function.
      */
-    List<Tool> tools = new ArrayList<>();
+    List<Tool> tools;
 
 
     /**
