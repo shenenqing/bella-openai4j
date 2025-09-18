@@ -36,6 +36,12 @@ public class Task {
     private String batchId;
 
     /**
+     * Trace identifier for tracking the task through systems
+     */
+    @JsonProperty("trace_id")
+    private String traceId;
+
+    /**
      * Access key for authentication
      */
     private String ak;
