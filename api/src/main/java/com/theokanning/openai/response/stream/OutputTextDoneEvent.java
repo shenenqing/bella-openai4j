@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when text generation is completed.
@@ -14,12 +15,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OutputTextDoneEvent extends BaseStreamEvent {
 
-    private String type = "response.output_text.done";
 
     /**
      * Item ID.
@@ -46,6 +46,6 @@ public class OutputTextDoneEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.output_text.done";
     }
 }

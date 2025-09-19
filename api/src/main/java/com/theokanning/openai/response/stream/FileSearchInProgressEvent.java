@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when file search is in progress.
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileSearchInProgressEvent extends BaseStreamEvent {
 
-    private String type = "response.file_search_call.in_progress";
 
     /**
      * Item ID.
@@ -35,6 +34,6 @@ public class FileSearchInProgressEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.file_search_call.in_progress";
     }
 }

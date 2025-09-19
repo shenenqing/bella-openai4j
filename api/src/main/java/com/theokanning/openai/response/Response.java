@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.Usage;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
 import lombok.AllArgsConstructor;
@@ -197,45 +198,6 @@ public class Response {
     public static class ReasoningFormat {
         private String effort;
         private String summary;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Usage {
-        @JsonProperty("input_tokens")
-        private Integer inputTokens;
-
-        @JsonProperty("output_tokens")
-        private Integer outputTokens;
-
-        @JsonProperty("total_tokens")
-        private Integer totalTokens;
-
-        @JsonProperty("input_tokens_details")
-        private InputTokensDetails inputTokensDetails;
-
-        @JsonProperty("output_tokens_details")
-        private OutputTokensDetails outputTokensDetails;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class InputTokensDetails {
-        @JsonProperty("cached_tokens")
-        private Integer cachedTokens;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class OutputTokensDetails {
-        @JsonProperty("reasoning_tokens")
-        private Integer reasoningTokens;
     }
 
     @Data

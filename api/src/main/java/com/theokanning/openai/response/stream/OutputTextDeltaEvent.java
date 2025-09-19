@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -16,12 +17,11 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OutputTextDeltaEvent extends BaseStreamEvent {
 
-    private String type = "response.output_text.delta";
 
     /**
      * Item ID.
@@ -53,7 +53,7 @@ public class OutputTextDeltaEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.output_text.delta";
     }
 
     @Data

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 /**
  * Function tool definition for developer-defined custom functions.
  *
@@ -34,7 +36,7 @@ public class FunctionTool implements ToolDefinition {
     /**
      * JSON schema for function parameters.
      */
-    private Object parameters;
+    private Map<String, Object> parameters;
 
     /**
      * Enforce strict parameter validation.

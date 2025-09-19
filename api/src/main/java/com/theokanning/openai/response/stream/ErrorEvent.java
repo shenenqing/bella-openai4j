@@ -1,10 +1,10 @@
 package com.theokanning.openai.response.stream;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when an error occurs during processing.
@@ -13,12 +13,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorEvent extends BaseStreamEvent {
 
-    private String type = "error";
 
     /**
      * Error code.
@@ -37,6 +36,6 @@ public class ErrorEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "error";
     }
 }

@@ -1,14 +1,20 @@
 package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when an MCP tool call has completed successfully.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class McpCallCompletedEvent extends BaseStreamEvent {
 
     /**

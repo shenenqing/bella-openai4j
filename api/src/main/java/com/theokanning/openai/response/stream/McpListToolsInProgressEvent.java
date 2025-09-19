@@ -1,14 +1,20 @@
 package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when the system is in the process of retrieving the list of available MCP tools.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class McpListToolsInProgressEvent extends BaseStreamEvent {
 
     /**

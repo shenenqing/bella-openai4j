@@ -1,14 +1,20 @@
 package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event indicating that input for a custom tool call is complete.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomToolCallInputDoneEvent extends BaseStreamEvent {
 
     /**

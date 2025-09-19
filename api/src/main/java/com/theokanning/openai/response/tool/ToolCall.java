@@ -30,5 +30,5 @@ import com.theokanning.openai.response.ResponseItem;
 })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class ToolCall implements ResponseItem {
-
+    public abstract String getId();
 }

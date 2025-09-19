@@ -1,14 +1,21 @@
 package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.response.content.Reasoning;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when a new reasoning summary part is added.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReasoningSummaryPartAddedEvent extends BaseStreamEvent {
 
     /**
@@ -26,7 +33,7 @@ public class ReasoningSummaryPartAddedEvent extends BaseStreamEvent {
     /**
      * The summary part that was added.
      */
-    private Object part;
+    private Reasoning.SummaryText part;
 
     /**
      * The index of the summary part within the reasoning summary.

@@ -1,5 +1,6 @@
 package com.theokanning.openai.response.content;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.response.ItemStatus;
@@ -66,6 +67,10 @@ public class Reasoning implements ResponseItem {
     public static class SummaryText {
         private String type = "summary_text";
         private String text;
+        @JsonIgnore
+        private String reasoningSignature;
+        @JsonIgnore
+        private String redactedReasoningContent;
     }
 
     @Data
@@ -75,5 +80,9 @@ public class Reasoning implements ResponseItem {
     public static class ReasoningText {
         private String type = "reasoning_text";
         private String text;
+        @JsonIgnore
+        private String reasoningSignature;
+        @JsonIgnore
+        private String redactedReasoningContent;
     }
 }

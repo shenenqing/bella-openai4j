@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted for incremental reasoning content (reasoning models only).
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReasoningTextDeltaEvent extends BaseStreamEvent {
 
-    private String type = "response.reasoning_text.delta";
 
     /**
      * Item ID.
@@ -46,6 +45,6 @@ public class ReasoningTextDeltaEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.reasoning_text.delta";
     }
 }

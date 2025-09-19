@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.theokanning.openai.response.Response;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted periodically during response generation.
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseInProgressEvent extends BaseStreamEvent {
 
-    private String type = "response.in_progress";
 
     /**
      * Response object with current state.
@@ -28,6 +27,6 @@ public class ResponseInProgressEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.in_progress";
     }
 }

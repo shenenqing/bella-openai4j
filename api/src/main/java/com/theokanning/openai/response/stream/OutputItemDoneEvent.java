@@ -3,10 +3,10 @@ package com.theokanning.openai.response.stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.response.ResponseItem;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when an output item is completed.
@@ -15,12 +15,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OutputItemDoneEvent extends BaseStreamEvent {
 
-    private String type = "response.output_item.done";
 
     /**
      * Output index.
@@ -35,6 +34,6 @@ public class OutputItemDoneEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.output_item.done";
     }
 }

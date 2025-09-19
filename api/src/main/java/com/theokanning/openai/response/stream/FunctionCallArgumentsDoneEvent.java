@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when function call arguments are completed.
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FunctionCallArgumentsDoneEvent extends BaseStreamEvent {
 
-    private String type = "response.function_call_arguments.done";
 
     /**
      * Item ID.
@@ -40,6 +39,6 @@ public class FunctionCallArgumentsDoneEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.function_call_arguments.done";
     }
 }

@@ -46,4 +46,5 @@ import com.theokanning.openai.response.tool.WebSearchToolCall;
         @JsonSubTypes.Type(value = ItemReference.class, name = "item_reference")
 })
 public interface ResponseItem extends ConversationItem {
+    String getId();
 }

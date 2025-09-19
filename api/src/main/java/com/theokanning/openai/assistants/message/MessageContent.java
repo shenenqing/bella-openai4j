@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.assistants.message.content.ImageFile;
 import com.theokanning.openai.assistants.message.content.Text;
+import com.theokanning.openai.completion.chat.ChatToolCall;
 import com.theokanning.openai.completion.chat.ImageUrl;
+import com.theokanning.openai.completion.chat.ToolMessage;
+import com.theokanning.openai.response.tool.ToolCall;
 import lombok.Data;
 
 
@@ -17,7 +20,7 @@ import lombok.Data;
 public class MessageContent {
 
     /**
-     * image_file/text
+     * image_url/image_file/text/tool_call/tool_result
      */
     String type;
 
@@ -42,14 +45,30 @@ public class MessageContent {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     ImageUrl imageUrl;
 
+    @JsonProperty("tool_call")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    ChatToolCall toolCall;
+
+    @JsonProperty("tool_result")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    ToolMessage toolResult;
+
     public boolean empty() {
         switch (type) {
         case "image_file":
             return imageFile == null;
         case "image_url":
             return imageUrl == null;
+        case "tool_call":
+            return toolCall == null;
+        case "toolResult":
+            return toolResult == null;
         default:
             return text == null || text.getValue() == null || text.getValue().trim().isEmpty();
         }
+    }
+
+    public boolean isVision() {
+        return type.equals("image_url") || type.equals("image_file");
     }
 }

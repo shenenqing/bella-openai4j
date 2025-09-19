@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when code writing is completed.
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CodeInterpreterCodeDoneEvent extends BaseStreamEvent {
 
-    private String type = "response.code_interpreter_call_code.done";
 
     /**
      * Item ID.
@@ -40,6 +39,6 @@ public class CodeInterpreterCodeDoneEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.code_interpreter_call_code.done";
     }
 }

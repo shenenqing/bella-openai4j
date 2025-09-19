@@ -2,16 +2,21 @@ package com.theokanning.openai.assistants.run;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.completion.CompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import lombok.Data;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * https://platform.openai.com/docs/guides/function-calling/function-calling-behavior
@@ -34,10 +39,16 @@ public class ToolChoice {
     Function function;
 
     /**
+     * which tolls is allowed
+     */
+    AllowedTools allowedTools;
+
+    /**
      * The type of the tool. If type is function, the function name must be set
      * enum: none/auto/function/required
      */
     String type;
+
 
     private ToolChoice(String type) {
         this.type = type;
@@ -49,6 +60,14 @@ public class ToolChoice {
             throw new IllegalArgumentException("Function must not be null");
         }
         this.function = function;
+    }
+
+    public ToolChoice(AllowedTools allowedTools) {
+        this.type = "allowed_tools";
+        if (allowedTools == null || allowedTools.getTools().isEmpty()) {
+            throw new IllegalArgumentException("allowedTools must not be empty");
+        }
+        this.allowedTools = allowedTools;
     }
 
     public static class Deserializer extends JsonDeserializer<ToolChoice> {
@@ -71,9 +90,17 @@ public class ToolChoice {
             if (jsonParser.getCurrentToken() == JsonToken.START_OBJECT) {
                 // 处理对象的情况
                 while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
-                    if (jsonParser.getCurrentName().equals("function")) {
+                    String fieldName = jsonParser.getCurrentName();
+                    if ("function".equals(fieldName)) {
                         jsonParser.nextToken();
-                        return new ToolChoice(parseFunction(jsonParser));
+                        ToolChoice toolChoice = new ToolChoice("function");
+                        toolChoice.function = parseFunction(jsonParser);
+                        return toolChoice;
+                    } else if ("allowed_tools".equals(fieldName)) {
+                        jsonParser.nextToken();
+                        ToolChoice toolChoice = new ToolChoice("allowed_tools");
+                        toolChoice.allowedTools = parseAllowedTools(jsonParser);
+                        return toolChoice;
                     }
                 }
             }
@@ -91,11 +118,55 @@ public class ToolChoice {
                         function.setName(jsonParser.nextTextValue());
                     }
                 }
-                jsonParser.nextToken();
                 return function;
             }
             //抛出异常
             throw new IllegalArgumentException("Invalid Function");
+        }
+
+        private AllowedTools parseAllowedTools(JsonParser jsonParser) throws IOException {
+            if (jsonParser.getCurrentToken() == JsonToken.START_OBJECT) {
+                AllowedTools allowedTools = new AllowedTools();
+                while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
+                    String fieldName = jsonParser.getCurrentName();
+                    if ("mode".equals(fieldName)) {
+                        allowedTools.setMode(jsonParser.nextTextValue());
+                    } else if ("tools".equals(fieldName)) {
+                        jsonParser.nextToken();
+                        allowedTools.setTools(parseToolsList(jsonParser));
+                    }
+                }
+                return allowedTools;
+            }
+            throw new IllegalArgumentException("Invalid AllowedTools");
+        }
+
+        private List<Tool> parseToolsList(JsonParser jsonParser) throws IOException {
+            if (jsonParser.getCurrentToken() == JsonToken.START_ARRAY) {
+                List<Tool> tools = new java.util.ArrayList<>();
+                while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
+                    tools.add(parseTool(jsonParser));
+                }
+                return tools;
+            }
+            throw new IllegalArgumentException("Invalid Tools Array");
+        }
+
+        private Tool parseTool(JsonParser jsonParser) throws IOException {
+            if (jsonParser.getCurrentToken() == JsonToken.START_OBJECT) {
+                Tool tool = new Tool();
+                while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
+                    String fieldName = jsonParser.getCurrentName();
+                    if ("type".equals(fieldName)) {
+                        tool.setType(jsonParser.nextTextValue());
+                    } else if ("function".equals(fieldName)) {
+                        jsonParser.nextToken();
+                        tool.setFunction(parseFunction(jsonParser));
+                    }
+                }
+                return tool;
+            }
+            throw new IllegalArgumentException("Invalid Tool");
         }
     }
 
@@ -109,14 +180,61 @@ public class ToolChoice {
                 case "required":
                     jsonGenerator.writeString(type);
                     break;
+                case "function":
+                    jsonGenerator.writeStartObject();
+                    jsonGenerator.writeStringField("type", type);
+                    jsonGenerator.writeObjectField("function", toolChoice.getFunction());
+                    jsonGenerator.writeEndObject();
+                    break;
+                case "allowed_tools":
+                    jsonGenerator.writeStartObject();
+                    jsonGenerator.writeStringField("type", type);
+                    jsonGenerator.writeObjectField("allowed_tools", toolChoice.getAllowedTools());
+                    jsonGenerator.writeEndObject();
+                    break;
                 default:
                     jsonGenerator.writeStartObject();
                     jsonGenerator.writeStringField("type", type);
-                    if (toolChoice.getType().equals("function")) {
-                        jsonGenerator.writeObjectField("function", toolChoice.getFunction());
-                    }
                     jsonGenerator.writeEndObject();
             }
         }
     }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        String str = "{\n"
+                + "\t\"type\": \"allowed_tools\",\n"
+                + "\t\"allowed_tools\": {\n"
+                + "\t\t\"mode\": \"auto\",\n"
+                + "\t\t\"tools\": [{\n"
+                + "\t\t\t\"type\": \"function\",\n"
+                + "\t\t\t\"function\": {\n"
+                + "\t\t\t\t\"name\": \"get_weather\"\n"
+                + "\t\t\t}\n"
+                + "\t\t}, {\n"
+                + "\t\t\t\"type\": \"function\",\n"
+                + "\t\t\t\"function\": {\n"
+                + "\t\t\t\t\"name\": \"get_time\"\n"
+                + "\t\t\t}\n"
+                + "\t\t}]\n"
+                + "\t}\n"
+                + "}";
+        ToolChoice toolChoice = mapper.readValue(str, ToolChoice.class);
+        System.out.println(mapper.writeValueAsString(toolChoice));
+        String str2 = "{\n"
+                + "\t\"type\": \"function\",\n"
+                + "\t\"function\": {\n"
+                + "\t\t\"name\": \"get_weather\"\n"
+                + "\t}\n"
+                + "}";
+        ToolChoice toolChoice2 = mapper.readValue(str2, ToolChoice.class);
+        System.out.println(mapper.writeValueAsString(toolChoice2));
+
+        String str3 = "{\n"
+                + "\t\"tool_choice\": \"auto\"\n"
+                + "}";
+        ChatCompletionRequest request = mapper.readValue(str3, ChatCompletionRequest.class);
+        System.out.println(mapper.writeValueAsString(request));
+    }
+
 }

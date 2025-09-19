@@ -2,10 +2,10 @@ package com.theokanning.openai.response.stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when web search is actively searching.
@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class WebSearchSearchingEvent extends BaseStreamEvent {
 
-    private String type = "response.web_search_call.searching";
 
     /**
      * Item ID.
@@ -35,6 +34,6 @@ public class WebSearchSearchingEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.web_search_call.searching";
     }
 }

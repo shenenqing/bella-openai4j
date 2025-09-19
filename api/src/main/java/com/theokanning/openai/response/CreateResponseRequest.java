@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.assistants.run.TruncationStrategy;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import com.theokanning.openai.response.content.InputImage;
 import com.theokanning.openai.response.content.InputMessage;
@@ -148,7 +149,8 @@ public class CreateResponseRequest {
     /**
      * Context truncation strategy.
      */
-    private String truncation = "disabled";
+    @JsonProperty("truncation_strategy")
+    private TruncationStrategy truncationStrategy;
 
     /**
      * Additional data to include in response.
@@ -159,6 +161,8 @@ public class CreateResponseRequest {
      * Response metadata key-value pairs.
      */
     private Map<String, String> metadata = new HashMap<>();
+
+    private String user;
 
     public static void main(String[] args) throws JsonProcessingException {
         String e = "invalid type";

@@ -3,7 +3,10 @@ package com.theokanning.openai.response.stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Base class for all streaming events in the Response API.
@@ -67,12 +70,10 @@ import lombok.Data;
         @JsonSubTypes.Type(value = CustomToolCallInputDoneEvent.class, name = "response.custom_tool_call_input.done"),
         @JsonSubTypes.Type(value = ErrorEvent.class, name = "error")
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 public abstract class BaseStreamEvent {
-
-    /**
-     * Event type identifier.
-     */
-    private String type;
 
     /**
      * Sequence number for event ordering.

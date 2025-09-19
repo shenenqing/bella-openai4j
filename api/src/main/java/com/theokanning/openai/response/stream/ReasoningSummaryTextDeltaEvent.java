@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted for reasoning summary updates.
@@ -14,12 +15,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReasoningSummaryTextDeltaEvent extends BaseStreamEvent {
 
-    private String type = "response.reasoning_summary_text.delta";
 
     /**
      * Item ID.
@@ -46,6 +46,6 @@ public class ReasoningSummaryTextDeltaEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.reasoning_summary_text.delta";
     }
 }

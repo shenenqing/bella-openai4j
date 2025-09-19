@@ -3,10 +3,10 @@ package com.theokanning.openai.response.stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.response.content.OutputContent;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Event emitted when new content is added to a message.
@@ -15,12 +15,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContentPartAddedEvent extends BaseStreamEvent {
 
-    private String type = "response.content_part.added";
 
     /**
      * Item ID.
@@ -47,6 +46,6 @@ public class ContentPartAddedEvent extends BaseStreamEvent {
 
     @Override
     public String getType() {
-        return type;
+        return "response.content_part.added";
     }
 }
