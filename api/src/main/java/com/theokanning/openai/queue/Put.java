@@ -56,6 +56,12 @@ public class Put {
     private int timeout;
 
     /**
+     * Used to trace the  task or batch that spawned this task
+     */
+    @JsonProperty("trace_id")
+    private String traceId;
+
+    /**
      * Returns the full queue name by combining the queue name and level
      *
      * @return formatted queue name as "queueName:level"
