@@ -80,7 +80,9 @@ public class ImageGenerationTool implements ToolDefinition {
 
     @Override
     public Tool getRealTool() {
-        return new Tool.ImgGenerate();
+        Tool.ImgGenerate imgGenerate = new Tool.ImgGenerate();
+        imgGenerate.setDefinition(this);
+        return imgGenerate;
     }
 
     @Data

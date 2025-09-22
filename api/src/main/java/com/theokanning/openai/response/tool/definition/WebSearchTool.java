@@ -38,7 +38,9 @@ public class WebSearchTool implements ToolDefinition {
 
     @Override
     public Tool getRealTool() {
-        return new Tool.WebSearch();
+        Tool.WebSearch webSearch = new Tool.WebSearch();
+        webSearch.setDefinition(this);
+        return webSearch;
     }
 
     @Data

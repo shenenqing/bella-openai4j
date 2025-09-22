@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.theokanning.openai.response.tool.definition.ImageGenerationTool;
+import com.theokanning.openai.response.tool.definition.ToolDefinition;
+import com.theokanning.openai.response.tool.definition.WebSearchTool;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -42,6 +45,14 @@ public interface Tool {
     @JsonIgnore
     String getType();
 
+    default Boolean hidden() {
+        return false;
+    }
+
+    default ToolDefinition definition() {
+        return null;
+    }
+
     /**
      * Function Tool
      */
@@ -65,9 +76,32 @@ public interface Tool {
         @JsonProperty("default_metadata")
         private DefaultMetadata defaultMetadata = new DefaultMetadata();
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean hidden;
+
+        public Retrieval() {
+
+        }
+
+        public Retrieval(Boolean hidden) {
+            this.hidden = hidden;
+        }
+
         @Override
         public String getType() {
             return "retrieval";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            com.theokanning.openai.response.tool.definition.FileSearchTool fileSearchTool = new com.theokanning.openai.response.tool.definition.FileSearchTool();
+            fileSearchTool.setDefaultMetadata(defaultMetadata);
+            return fileSearchTool;
+        }
+
+        @Override
+        public Boolean hidden() {
+            return Boolean.TRUE == hidden;
         }
     }
 
@@ -91,9 +125,17 @@ public interface Tool {
     @Data
     class WebSearch implements Tool {
 
+        @JsonIgnore
+        private WebSearchTool definition;
+
         @Override
         public String getType() {
             return "web_search";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            return definition;
         }
     }
 
@@ -139,9 +181,17 @@ public interface Tool {
     @Data
     class ImgGenerate implements Tool {
 
+        @JsonIgnore
+        private ImageGenerationTool definition;
+
         @Override
         public String getType() {
             return "img_generate";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            return definition;
         }
     }
 
@@ -223,9 +273,25 @@ public interface Tool {
     @Data
     class ReadFiles implements Tool {
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean hidden;
+
+        public ReadFiles() {
+
+        }
+
+        public ReadFiles(Boolean hidden) {
+            this.hidden = hidden;
+        }
+
         @Override
         public String getType() {
             return "read_files";
+        }
+
+        @Override
+        public Boolean hidden() {
+            return Boolean.TRUE == hidden;
         }
     }
 
