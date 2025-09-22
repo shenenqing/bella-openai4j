@@ -26,6 +26,7 @@ public class AssistantMultipleMessage implements ChatMessage {
 
     // The contents of the reasoning message.
     @JsonProperty("reasoning_content")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     String reasoningContent;
 
     @JsonProperty("reasoning_content_signature")

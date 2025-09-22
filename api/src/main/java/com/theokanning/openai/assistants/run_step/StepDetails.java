@@ -29,4 +29,20 @@ public class StepDetails {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ToolCall> toolCalls;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String text;
+
+    // The contents of the reasoning message.
+    @JsonProperty("reasoning_content")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String reasoningContent;
+
+    @JsonProperty("reasoning_content_signature")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String reasoningContentSignature;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("redacted_reasoning_content")
+    private String redactedReasoningContent;
+
 }
