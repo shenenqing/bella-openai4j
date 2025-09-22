@@ -45,9 +45,15 @@ public interface Tool {
     @JsonIgnore
     String getType();
 
-    default Boolean hidden() {
+    default boolean hidden() {
         return false;
     }
+
+    default boolean inherit() {
+        return false;
+    }
+
+    default void toInherit() {}
 
     default ToolDefinition definition() {
         return null;
@@ -79,12 +85,16 @@ public interface Tool {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Boolean hidden;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean inherit;
+
         public Retrieval() {
 
         }
 
-        public Retrieval(Boolean hidden) {
+        public Retrieval(Boolean hidden, Boolean inherit) {
             this.hidden = hidden;
+            this.inherit = inherit;
         }
 
         @Override
@@ -100,8 +110,18 @@ public interface Tool {
         }
 
         @Override
-        public Boolean hidden() {
+        public boolean hidden() {
             return Boolean.TRUE == hidden;
+        }
+
+        @Override
+        public boolean inherit() {
+            return Boolean.TRUE == inherit;
+        }
+
+        @Override
+        public void toInherit() {
+            setInherit(true);
         }
     }
 
@@ -276,12 +296,16 @@ public interface Tool {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Boolean hidden;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean inherit;
+
         public ReadFiles() {
 
         }
 
-        public ReadFiles(Boolean hidden) {
+        public ReadFiles(Boolean hidden, Boolean inherit) {
             this.hidden = hidden;
+            this.inherit = inherit;
         }
 
         @Override
@@ -290,8 +314,18 @@ public interface Tool {
         }
 
         @Override
-        public Boolean hidden() {
+        public boolean hidden() {
             return Boolean.TRUE == hidden;
+        }
+
+        @Override
+        public boolean inherit() {
+            return Boolean.TRUE == inherit;
+        }
+
+        @Override
+        public void toInherit() {
+            setInherit(true);
         }
     }
 
