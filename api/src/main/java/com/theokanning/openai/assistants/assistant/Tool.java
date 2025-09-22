@@ -360,8 +360,8 @@ public interface Tool {
     @Data
     class DefaultMetadata {
         @JsonProperty("top_k")
-        private Integer topK = 3;
-        private Double score = 0.8;
+        private Integer topK = 5;
+        private Double score = 0.4;
         @JsonProperty("empty_recall_reply")
         private String emptyRecallReply = "";
         @JsonProperty("metadata_filter")
