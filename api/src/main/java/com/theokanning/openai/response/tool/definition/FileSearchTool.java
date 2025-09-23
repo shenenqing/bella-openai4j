@@ -25,9 +25,6 @@ public class FileSearchTool implements ToolDefinition {
      */
     private String type = "file_search";
 
-    @JsonProperty("default_metadata")
-    private Tool.DefaultMetadata defaultMetadata = new Tool.DefaultMetadata();
-
     /**
      * Vector store IDs to search.
      */
@@ -54,7 +51,15 @@ public class FileSearchTool implements ToolDefinition {
     @Override
     public Tool getRealTool() {
         Tool.Retrieval retrieval = new Tool.Retrieval();
-        retrieval.setDefaultMetadata(defaultMetadata);
+        Tool.DefaultMetadata metadata = new Tool.DefaultMetadata();
+        if(maxNumResults != null) {
+            metadata.setTopK(maxNumResults);
+        }
+        if(rankingOptions != null && rankingOptions.scoreThreshold != null) {
+            metadata.setScore(rankingOptions.scoreThreshold);
+        }
+        retrieval.setFileIds(vectorStoreIds);
+        retrieval.setDefaultMetadata(metadata);
         return retrieval;
     }
 

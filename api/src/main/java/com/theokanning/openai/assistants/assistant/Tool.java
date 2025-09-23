@@ -88,6 +88,10 @@ public interface Tool {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Boolean inherit;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonProperty("file_ids")
+        private List<String> fileIds;
+
         public Retrieval() {
 
         }
@@ -105,7 +109,9 @@ public interface Tool {
         @Override
         public ToolDefinition definition() {
             com.theokanning.openai.response.tool.definition.FileSearchTool fileSearchTool = new com.theokanning.openai.response.tool.definition.FileSearchTool();
-            fileSearchTool.setDefaultMetadata(defaultMetadata);
+            fileSearchTool.setVectorStoreIds(fileIds);
+            fileSearchTool.setRankingOptions(new com.theokanning.openai.response.tool.definition.FileSearchTool.RankingOptions(null, defaultMetadata.getScore()));
+            fileSearchTool.setMaxNumResults(defaultMetadata.getTopK());
             return fileSearchTool;
         }
 
