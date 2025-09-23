@@ -82,4 +82,12 @@ public abstract class BaseStreamEvent {
     private Integer sequenceNumber;
 
     public abstract String getType();
+
+    public void setOutputIndex(Integer outputIndex) {
+
+    }
+
+    public void setItemId(String itemId) {
+
+    }
 }

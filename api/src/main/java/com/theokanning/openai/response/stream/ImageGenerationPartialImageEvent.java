@@ -30,6 +30,12 @@ public class ImageGenerationPartialImageEvent extends BaseStreamEvent {
     private Integer outputIndex;
 
     /**
+     * url partial image data, suitable for rendering as an image.
+     */
+    @JsonProperty("partial_image_url")
+    private String partialImageUrl;
+
+    /**
      * Base64-encoded partial image data, suitable for rendering as an image.
      */
     @JsonProperty("partial_image_b64")

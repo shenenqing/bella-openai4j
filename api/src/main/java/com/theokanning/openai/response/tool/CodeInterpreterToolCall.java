@@ -3,6 +3,7 @@ package com.theokanning.openai.response.tool;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.theokanning.openai.response.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,7 +51,7 @@ public class CodeInterpreterToolCall extends ToolCall {
     /**
      * Execution status.
      */
-    private String status;
+    private ItemStatus status;
 
     @Override
     public String getType() {

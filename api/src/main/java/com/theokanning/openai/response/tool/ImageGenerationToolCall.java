@@ -1,6 +1,7 @@
 package com.theokanning.openai.response.tool;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.response.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +31,7 @@ public class ImageGenerationToolCall extends ToolCall {
     private String id;
 
     /**
-     * The generated image encoded in base64.
+     * The generated image encoded in base64 / url.
      */
     private String result;
 
@@ -38,6 +39,12 @@ public class ImageGenerationToolCall extends ToolCall {
      * The status of the image generation call.
      */
     private ItemStatus status;
+
+    /**
+     * base64 / url
+     */
+    @JsonProperty("data_type")
+    private String dataType;
 
     @Override
     public String getType() {

@@ -1,6 +1,7 @@
 package com.theokanning.openai.response.tool.definition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.theokanning.openai.assistants.assistant.Tool;
@@ -27,6 +28,7 @@ import com.theokanning.openai.assistants.assistant.Tool;
         @JsonSubTypes.Type(value = MCPTool.class, name = "mcp"),
         @JsonSubTypes.Type(value = CustomTool.class, name = "custom")
 })
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public interface ToolDefinition {
 
     /**

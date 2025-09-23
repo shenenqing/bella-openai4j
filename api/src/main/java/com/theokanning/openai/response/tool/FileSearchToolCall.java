@@ -1,6 +1,7 @@
 package com.theokanning.openai.response.tool;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.response.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,7 +39,7 @@ public class FileSearchToolCall extends ToolCall {
     /**
      * Execution status.
      */
-    private String status;
+    private ItemStatus status;
 
     /**
      * Search results.

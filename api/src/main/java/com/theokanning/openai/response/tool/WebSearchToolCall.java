@@ -2,6 +2,7 @@ package com.theokanning.openai.response.tool;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.theokanning.openai.response.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class WebSearchToolCall extends ToolCall {
     /**
      * Execution status.
      */
-    private String status;
+    private ItemStatus status;
 
     /**
      * Specific action performed.
