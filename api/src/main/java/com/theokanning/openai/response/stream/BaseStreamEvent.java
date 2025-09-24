@@ -1,5 +1,6 @@
 package com.theokanning.openai.response.stream;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -73,6 +74,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class BaseStreamEvent {
 
     /**
@@ -87,7 +89,15 @@ public abstract class BaseStreamEvent {
 
     }
 
+    public Integer getOutputIndex() {
+        return null;
+    }
+
     public void setItemId(String itemId) {
 
+    }
+
+    public String getItemId() {
+        return null;
     }
 }

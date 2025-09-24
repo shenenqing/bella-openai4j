@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.CompletionTokensDetails;
+import com.theokanning.openai.PromptTokensDetails;
 import com.theokanning.openai.Usage;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
@@ -215,5 +217,40 @@ public class Response {
     @AllArgsConstructor
     public static class IncompleteDetails {
         private String reason;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Usage {
+
+        @JsonProperty("input_tokens")
+        long inputTokens;
+
+        @JsonProperty("output_tokens")
+        long outputTokens;
+
+        @JsonProperty("total_tokens")
+        long totalTokens;
+
+        @JsonProperty("input_tokens_details")
+        PromptTokensDetails inputTokensDetails;
+
+        @JsonProperty("output_tokens_details")
+        CompletionTokensDetails outputTokensDetails;
+
+        public static Usage fromChatUsage(com.theokanning.openai.Usage usage) {
+            if(usage == null) {
+                return null;
+            }
+            return Usage.builder()
+                    .inputTokens(usage.getPromptTokens())
+                    .inputTokensDetails(usage.getPromptTokensDetails())
+                    .outputTokens(usage.getCompletionTokens())
+                    .outputTokensDetails(usage.getCompletionTokensDetails())
+                    .totalTokens(usage.getTotalTokens())
+                    .build();
+        }
     }
 }
