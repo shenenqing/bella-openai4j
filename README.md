@@ -1,4 +1,4 @@
-![Maven Central](https://img.shields.io/maven-central/v/io.github.lambdua/service?color=blue)
+![Maven Central](https://img.shields.io/maven-central/v/top.bella/openai-service?color=blue)
 
 # OpenAi4J
 
@@ -25,14 +25,14 @@ applications effortlessly.
 ## Import
 ### Gradle
 
-`implementation 'io.github.lambdua:<api|client|service>:0.22.92'`
+`implementation 'top.bella:<openai-api|openai-client|openai-service>:<version>'`
 ### Maven
 ```xml
 
 <dependency>
-  <groupId>io.github.lambdua</groupId>
-  <artifactId>service</artifactId>
-    <version>0.22.92</version>
+  <groupId>top.bella</groupId>
+  <artifactId>openai-service</artifactId>
+  <version>${latest.version}</version>
 </dependency>
 ```
 
@@ -65,9 +65,9 @@ To utilize pojos, import the api module:
 ```xml
 
 <dependency>
-  <groupId>io.github.lambdua</groupId>
-  <artifactId>api</artifactId>
-    <version>0.22.92</version>
+  <groupId>top.bella</groupId>
+  <artifactId>openai-api</artifactId>
+  <version>${latest.version}</version>
 </dependency>
 ```
 
