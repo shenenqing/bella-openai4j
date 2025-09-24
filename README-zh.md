@@ -1,4 +1,4 @@
-![Maven Central](https://img.shields.io/maven-central/v/io.github.lambdua/service?color=blue)
+![Maven Central](https://img.shields.io/maven-central/v/top.bella/openai-service?color=blue)
 
 # OpenAi4J
 
@@ -21,14 +21,14 @@ OpenAi4J是一个非官方的Java库，旨在帮助java开发者与OpenAI的GPT�
 ## 导入依赖
 ### Gradle
 
-`implementation 'io.github.lambdua:<api|client|service>:0.22.92'`
+`implementation 'top.bella:<openai-api|openai-client|openai-service>:<version>'`
 ### Maven
 ```xml
 
 <dependency>
-    <groupId>io.github.lambdua</groupId>
-    <artifactId>service</artifactId>
-    <version>0.22.92</version>
+    <groupId>top.bella</groupId>
+    <artifactId>openai-service</artifactId>
+    <version>${latest.version}</version>
 </dependency>
 ```
 
@@ -59,9 +59,9 @@ static void simpleChat() {
 ```xml
 
 <dependency>
-    <groupId>io.github.lambdua</groupId>
-    <artifactId>api</artifactId>
-    <version>0.22.92</version>
+    <groupId>top.bella</groupId>
+    <artifactId>openai-api</artifactId>
+    <version>${latest.version}</version>
 </dependency>
 ```
 
