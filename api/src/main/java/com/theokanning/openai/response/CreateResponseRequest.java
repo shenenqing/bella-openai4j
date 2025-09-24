@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.theokanning.openai.assistants.IUssrRequest;
 import com.theokanning.openai.assistants.run.TruncationStrategy;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import com.theokanning.openai.response.content.InputImage;
@@ -41,7 +42,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateResponseRequest {
+public class CreateResponseRequest implements IUssrRequest {
 
     /**
      * Model ID to use for generation.
