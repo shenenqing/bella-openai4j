@@ -1,6 +1,7 @@
 package com.theokanning.openai.response.tool.definition;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.theokanning.openai.assistants.assistant.Tool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,5 +27,11 @@ public class LocalShellTool implements ToolDefinition {
     @Override
     public String getType() {
         return type;
+    }
+
+
+    @Override
+    public Tool getRealTool() {
+        return new Tool.LocalShell();
     }
 }

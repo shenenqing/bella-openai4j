@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.theokanning.openai.CompletionTokensDetails;
 import com.theokanning.openai.PromptTokensDetails;
-import com.theokanning.openai.Usage;
 import com.theokanning.openai.completion.chat.ChatResponseFormat;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
 import lombok.AllArgsConstructor;

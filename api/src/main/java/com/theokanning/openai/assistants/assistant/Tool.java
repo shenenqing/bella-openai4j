@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.theokanning.openai.response.tool.definition.ImageGenerationTool;
+import com.theokanning.openai.response.tool.definition.LocalShellTool;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
 import com.theokanning.openai.response.tool.definition.WebSearchTool;
 import lombok.Data;
@@ -22,6 +23,7 @@ import java.util.Map;
  **/
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = Tool.LocalShell.class, name = "local_shell"),
         @JsonSubTypes.Type(value = Tool.Function.class, name = "function"),
         @JsonSubTypes.Type(value = CodeInterpreterTool.class, name = "code_interpreter"),
         @JsonSubTypes.Type(value = FileSearchTool.class, name = "file_search"),
@@ -57,6 +59,19 @@ public interface Tool {
 
     default ToolDefinition definition() {
         return null;
+    }
+
+    class LocalShell implements Tool {
+
+        @Override
+        public String getType() {
+            return "local_shell";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            return new LocalShellTool();
+        }
     }
 
     /**

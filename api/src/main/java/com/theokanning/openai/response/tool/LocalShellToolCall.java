@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,7 +63,12 @@ public class LocalShellToolCall extends ToolCall {
         /**
          * The command to execute.
          */
-        private String command;
+        private List<String > command;
+
+        /**
+         * The type of the local shell action. Always exec.
+         */
+        private String type = "exec";
 
         /**
          * Working directory for the command.
@@ -73,6 +79,16 @@ public class LocalShellToolCall extends ToolCall {
         /**
          * Environment variables for the command.
          */
-        private Map<String, String> environment;
+        private Object env;
+
+        /**
+         * Optional user to run the command as.
+         */
+        private String user;
+
+        /**
+         * Optional timeout in milliseconds for the command.
+         */
+        private Integer timeout_ms;
     }
 }
