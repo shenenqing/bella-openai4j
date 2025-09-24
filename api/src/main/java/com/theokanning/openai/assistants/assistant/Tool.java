@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.theokanning.openai.response.tool.definition.CustomTool;
 import com.theokanning.openai.response.tool.definition.ImageGenerationTool;
 import com.theokanning.openai.response.tool.definition.LocalShellTool;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
 import com.theokanning.openai.response.tool.definition.WebSearchTool;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.Map;
  **/
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = Tool.Custom.class, name = "custom_tool"),
         @JsonSubTypes.Type(value = Tool.LocalShell.class, name = "local_shell"),
         @JsonSubTypes.Type(value = Tool.Function.class, name = "function"),
         @JsonSubTypes.Type(value = CodeInterpreterTool.class, name = "code_interpreter"),
@@ -59,6 +63,24 @@ public interface Tool {
 
     default ToolDefinition definition() {
         return null;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class Custom implements Tool {
+
+        private CustomTool definition;
+
+        @Override
+        public String getType() {
+            return "custom_tool";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            return definition;
+        }
     }
 
     class LocalShell implements Tool {

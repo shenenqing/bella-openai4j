@@ -1,5 +1,9 @@
 package com.theokanning.openai.response.tool.definition;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.theokanning.openai.assistants.assistant.Tool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,13 +38,33 @@ public class CustomTool implements ToolDefinition {
     /**
      * Input format specification.
      */
-    private Object format; // TextFormat or GrammarFormat
+    private Format format; // TextFormat or GrammarFormat
+
+
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXISTING_PROPERTY,
+            property = "type"
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = TextFormat.class, name = "text"),
+            @JsonSubTypes.Type(value = GrammarFormat.class, name = "grammar"),
+    })
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public interface Format {
+
+        /**
+         * Get the tool type.
+         */
+        String getType();
+    }
+
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TextFormat {
+    public static class TextFormat implements Format {
 
         /**
          * Format type, always "text".
@@ -52,7 +76,7 @@ public class CustomTool implements ToolDefinition {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GrammarFormat {
+    public static class GrammarFormat implements Format {
 
         /**
          * Format type, always "grammar".
@@ -68,5 +92,10 @@ public class CustomTool implements ToolDefinition {
          * Grammar definition.
          */
         private String definition;
+    }
+
+    @Override
+    public Tool getRealTool() {
+        return new Tool.Custom(this);
     }
 }
