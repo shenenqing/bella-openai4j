@@ -20,6 +20,7 @@ public class InputFile extends InputContent {
     /**
      * Content type, always "input_file".
      */
+    @Builder.Default
     private String type = "input_file";
 
     /**

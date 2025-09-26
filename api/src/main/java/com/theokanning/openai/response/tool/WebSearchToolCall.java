@@ -24,6 +24,7 @@ public class WebSearchToolCall extends ToolCall {
     /**
      * Tool call type, always "web_search_call".
      */
+    @Builder.Default
     private String type = "web_search_call";
 
     /**

@@ -23,6 +23,7 @@ public class LocalShellCallOutput implements ConversationItem {
     /**
      * The type of the local shell tool call output. Always "local_shell_call_output".
      */
+    @Builder.Default
     private String type = "local_shell_call_output";
 
     /**

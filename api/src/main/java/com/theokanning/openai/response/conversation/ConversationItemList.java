@@ -24,6 +24,7 @@ public class ConversationItemList {
     /**
      * Object type, always "list".
      */
+    @Builder.Default
     private String object = "list";
 
     /**

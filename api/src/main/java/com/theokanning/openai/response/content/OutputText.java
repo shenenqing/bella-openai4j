@@ -24,6 +24,7 @@ public class OutputText extends OutputContent {
     /**
      * Content type, always "output_text".
      */
+    @Builder.Default
     private String type = "output_text";
 
     /**

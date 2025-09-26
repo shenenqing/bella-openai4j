@@ -20,6 +20,7 @@ public class InputImage extends InputContent {
     /**
      * Content type, always "input_image".
      */
+    @Builder.Default
     private String type = "input_image";
 
     /**

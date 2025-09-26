@@ -21,6 +21,7 @@ public class FunctionToolCall extends ToolCall {
     /**
      * Tool call type, always "function_call".
      */
+    @Builder.Default
     private String type = "function_call";
 
     /**

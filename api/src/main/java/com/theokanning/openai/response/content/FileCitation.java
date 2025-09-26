@@ -24,6 +24,7 @@ public class FileCitation extends Annotation {
     /**
      * Annotation type, always "file_citation".
      */
+    @Builder.Default
     private String type = "file_citation";
 
     /**

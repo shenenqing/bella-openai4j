@@ -25,6 +25,7 @@ public class MCPListTools extends ToolCall {
     /**
      * The type of the item. Always "mcp_list_tools".
      */
+    @Builder.Default
     private String type = "mcp_list_tools";
 
     /**

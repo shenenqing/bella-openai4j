@@ -23,6 +23,7 @@ public class ImageGenerationToolCall extends ToolCall {
     /**
      * The type of the image generation call. Always "image_generation_call".
      */
+    @Builder.Default
     private String type = "image_generation_call";
 
     /**

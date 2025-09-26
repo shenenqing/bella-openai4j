@@ -26,6 +26,7 @@ public class ComputerToolCallOutput implements ConversationItem {
     /**
      * The type of the computer tool call output. Always "computer_call_output".
      */
+    @Builder.Default
     private String type = "computer_call_output";
 
     /**

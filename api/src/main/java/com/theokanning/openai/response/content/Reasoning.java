@@ -27,6 +27,7 @@ public class Reasoning implements ResponseItem {
     /**
      * Reasoning type, always "reasoning".
      */
+    @Builder.Default
     private String type = "reasoning";
 
     /**
@@ -65,6 +66,7 @@ public class Reasoning implements ResponseItem {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SummaryText {
+        @Builder.Default
         private String type = "summary_text";
         private String text;
         @JsonIgnore
@@ -78,6 +80,7 @@ public class Reasoning implements ResponseItem {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ReasoningText {
+        @Builder.Default
         private String type = "reasoning_text";
         private String text;
         @JsonIgnore

@@ -24,6 +24,7 @@ public class DeleteConversationResult {
     /**
      * Object type, always "conversation.deleted".
      */
+    @Builder.Default
     private String object = "conversation.deleted";
 
     /**

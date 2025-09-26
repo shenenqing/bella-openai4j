@@ -22,6 +22,7 @@ public class CustomToolCall extends ToolCall {
     /**
      * The type of the custom tool call. Always "custom_tool_call".
      */
+    @Builder.Default
     private String type = "custom_tool_call";
 
     /**

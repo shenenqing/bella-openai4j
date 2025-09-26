@@ -30,6 +30,7 @@ public class Conversation {
     /**
      * Object type, always "conversation".
      */
+    @Builder.Default
     private String object = "conversation";
 
     /**

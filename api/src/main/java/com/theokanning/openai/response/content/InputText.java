@@ -19,6 +19,7 @@ public class InputText extends InputContent {
     /**
      * Content type, always "input_text".
      */
+    @Builder.Default
     private String type = "input_text";
 
     /**

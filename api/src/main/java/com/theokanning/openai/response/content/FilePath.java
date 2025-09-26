@@ -24,6 +24,7 @@ public class FilePath extends Annotation {
     /**
      * Annotation type, always "file_path".
      */
+    @Builder.Default
     private String type = "file_path";
 
     /**

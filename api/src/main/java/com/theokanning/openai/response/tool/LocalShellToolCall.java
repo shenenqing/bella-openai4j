@@ -26,6 +26,7 @@ public class LocalShellToolCall extends ToolCall {
     /**
      * The type of the local shell call. Always "local_shell_call".
      */
+    @Builder.Default
     private String type = "local_shell_call";
 
     /**

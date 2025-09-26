@@ -25,6 +25,7 @@ public class CodeInterpreterToolCall extends ToolCall {
     /**
      * Tool call type, always "code_interpreter_call".
      */
+    @Builder.Default
     private String type = "code_interpreter_call";
 
     /**

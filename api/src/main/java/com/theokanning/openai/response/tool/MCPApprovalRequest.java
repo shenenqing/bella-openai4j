@@ -22,6 +22,7 @@ public class MCPApprovalRequest extends ToolCall {
     /**
      * The type of the item. Always "mcp_approval_request".
      */
+    @Builder.Default
     private String type = "mcp_approval_request";
 
     /**

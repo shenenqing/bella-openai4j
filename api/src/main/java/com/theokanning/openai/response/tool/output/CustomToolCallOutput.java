@@ -23,6 +23,7 @@ public class CustomToolCallOutput implements ConversationItem {
     /**
      * The type of the custom tool call output. Always "custom_tool_call_output".
      */
+    @Builder.Default
     private String type = "custom_tool_call_output";
 
     /**

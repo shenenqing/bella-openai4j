@@ -24,6 +24,7 @@ public class FileSearchToolCall extends ToolCall {
     /**
      * Tool call type, always "file_search_call".
      */
+    @Builder.Default
     private String type = "file_search_call";
 
     /**

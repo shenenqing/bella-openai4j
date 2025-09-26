@@ -22,6 +22,7 @@ public class URLCitation extends Annotation {
     /**
      * Annotation type, always "url_citation".
      */
+    @Builder.Default
     private String type = "url_citation";
 
     /**

@@ -27,6 +27,7 @@ public class ComputerToolCall extends ToolCall {
     /**
      * The type of the computer call. Always "computer_call".
      */
+    @Builder.Default
     private String type = "computer_call";
 
     /**

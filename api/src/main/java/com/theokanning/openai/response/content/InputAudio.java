@@ -22,6 +22,7 @@ public class InputAudio extends InputContent {
     /**
      * Content type, always "input_audio".
      */
+    @Builder.Default
     private String type = "input_audio";
 
     /**

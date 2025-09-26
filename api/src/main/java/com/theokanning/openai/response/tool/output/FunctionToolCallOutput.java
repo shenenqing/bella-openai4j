@@ -24,6 +24,7 @@ public class FunctionToolCallOutput implements ConversationItem {
     /**
      * The type of the function tool call output. Always "function_call_output".
      */
+    @Builder.Default
     private String type = "function_call_output";
 
     /**

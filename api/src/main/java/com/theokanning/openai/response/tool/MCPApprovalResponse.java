@@ -23,6 +23,7 @@ public class MCPApprovalResponse implements ConversationItem {
     /**
      * The type of the item. Always "mcp_approval_response".
      */
+    @Builder.Default
     private String type = "mcp_approval_response";
 
     /**

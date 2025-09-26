@@ -19,6 +19,7 @@ public class Refusal extends OutputContent {
     /**
      * Content type, always "refusal".
      */
+    @Builder.Default
     private String type = "refusal";
 
     /**

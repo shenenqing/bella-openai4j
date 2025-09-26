@@ -24,6 +24,7 @@ public class ContainerFileCitation extends Annotation {
     /**
      * Annotation type, always "container_file_citation".
      */
+    @Builder.Default
     private String type = "container_file_citation";
 
     /**
