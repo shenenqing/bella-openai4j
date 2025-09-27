@@ -62,6 +62,9 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import okhttp3.*;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Source;
 import retrofit2.Call;
 import retrofit2.HttpException;
 import retrofit2.Retrofit;
@@ -73,6 +76,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
@@ -272,28 +278,37 @@ public class OpenAiService {
     }
 
     /**
-     * @param purpose file purpose,support: batch,fine-tune,assistants
+     * Upload a file using file path.
      */
     public File uploadFile(String purpose, String filepath) {
-        java.io.File file = new java.io.File(filepath);
-        try {
-            return uploadFile(purpose, new FileInputStream(file), file.getName());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        Path path = Paths.get(filepath);
+
+        try (InputStream inputStream = Files.newInputStream(path)) {
+            return uploadFile(purpose, inputStream, path.getFileName().toString());
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to upload file: " + filepath, e);
         }
     }
 
     /**
      * Upload a file using InputStream.
-     *
-     * @param purpose         file purpose, Use "assistants" for Assistants and Messages, "batch" for Batch API, and "fine-tune" for Fine-tuning.
-     * @param fileInputStream the input stream of the file to be uploaded
-     * @param filename        the name of the file to be uploaded
-     * @return the File object returned by the API after the file is uploaded
      */
     public File uploadFile(String purpose, InputStream fileInputStream, String filename) {
         RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);
-        RequestBody fileBody = RequestBody.create(FileUtil.getFileUploadMediaType(filename), FileUtil.readAllBytes(fileInputStream));
+        RequestBody fileBody = new RequestBody() {
+            @Override
+            public MediaType contentType() {
+                return FileUtil.getFileUploadMediaType(filename);
+            }
+
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                try (Source source = Okio.source(fileInputStream)) {
+                    sink.writeAll(source);
+                }
+            }
+        };
+
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", filename, fileBody);
         return execute(api.uploadFile(purposeBody, body));
     }
