@@ -42,7 +42,7 @@ public class ImageGenerationToolCall extends ToolCall {
     private ItemStatus status;
 
     /**
-     * base64 / url
+     * b64_json / url
      */
     @JsonProperty("data_type")
     private String dataType;
