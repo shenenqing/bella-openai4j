@@ -101,6 +101,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -250,13 +251,13 @@ public class OpenAiService {
         return execute(api.createEmbeddings(request));
     }
 
-    public List<File> listFiles() {
-        return execute(api.listFiles()).data;
-    }
-
     @Deprecated
     public CompletionResult createCompletion(CompletionRequest request) {
         return execute(api.createCompletion(request));
+    }
+
+    public List<File> listFiles() {
+        return execute(api.listFiles()).data;
     }
 
     public DeleteResult deleteFile(String fileId) {
@@ -269,6 +270,16 @@ public class OpenAiService {
 
     public ResponseBody retrieveFileContent(String fileId) {
         return execute(api.retrieveFileContent(fileId));
+    }
+
+    public void retrieveFileContentAndSave(String fileId, String filePath) throws IOException {
+        InputStream inputStream = execute(api.retrieveFileContent(fileId)).byteStream();
+        Path path = Paths.get(filePath);
+        Path parentDir = path.getParent();
+        if (parentDir != null) {
+            Files.createDirectories(parentDir);
+        }
+        Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public ResponseBody retrieveDomTreeContent(String fileId) {
