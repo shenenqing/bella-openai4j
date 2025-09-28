@@ -273,13 +273,17 @@ public class OpenAiService {
     }
 
     public void retrieveFileContentAndSave(String fileId, String filePath) throws IOException {
-        InputStream inputStream = execute(api.retrieveFileContent(fileId)).byteStream();
         Path path = Paths.get(filePath);
-        Path parentDir = path.getParent();
+        retrieveFileContentAndSave(filePath, path);
+    }
+
+    public void retrieveFileContentAndSave(String fileId, Path filePath) throws IOException {
+        InputStream inputStream = execute(api.retrieveFileContent(fileId)).byteStream();
+        Path parentDir = filePath.getParent();
         if (parentDir != null) {
             Files.createDirectories(parentDir);
         }
-        Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public ResponseBody retrieveDomTreeContent(String fileId) {

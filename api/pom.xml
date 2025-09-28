@@ -6,7 +6,7 @@
     <parent>
         <groupId>top.bella</groupId>
         <artifactId>openai-java</artifactId>
-        <version>0.23.67</version>
+        <version>0.23.68</version>
     </parent>
     <packaging>jar</packaging>
     <artifactId>openai-api</artifactId>
