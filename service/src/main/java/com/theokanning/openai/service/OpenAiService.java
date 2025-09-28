@@ -335,9 +335,16 @@ public class OpenAiService {
      */
     public File uploadFile(String purpose, String filepath) {
         Path path = Paths.get(filepath);
+        return uploadFile(purpose, path);
+    }
 
-        try (InputStream inputStream = Files.newInputStream(path)) {
-            return uploadFile(purpose, inputStream, path.getFileName().toString());
+    /**
+     * Upload a file using file path.
+     */
+    public File uploadFile(String purpose, Path filepath) {
+
+        try (InputStream inputStream = Files.newInputStream(filepath)) {
+            return uploadFile(purpose, inputStream, filepath.getFileName().toString());
         } catch (IOException e) {
             throw new IllegalStateException("Failed to upload file: " + filepath, e);
         }
