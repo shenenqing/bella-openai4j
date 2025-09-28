@@ -274,7 +274,7 @@ public class OpenAiService {
 
     public void retrieveFileContentAndSave(String fileId, String filePath) throws IOException {
         Path path = Paths.get(filePath);
-        retrieveFileContentAndSave(filePath, path);
+        retrieveFileContentAndSave(fileId, path);
     }
 
     public void retrieveFileContentAndSave(String fileId, Path filePath) throws IOException {
