@@ -7,7 +7,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.theokanning.openai.*;
+import com.theokanning.openai.DeleteResult;
+import com.theokanning.openai.ListSearchParameters;
+import com.theokanning.openai.OpenAiError;
+import com.theokanning.openai.OpenAiHttpException;
+import com.theokanning.openai.OpenAiResponse;
 import com.theokanning.openai.assistants.assistant.Assistant;
 import com.theokanning.openai.assistants.assistant.AssistantRequest;
 import com.theokanning.openai.assistants.assistant.ModifyAssistantRequest;
@@ -16,7 +20,11 @@ import com.theokanning.openai.assistants.message.Message;
 import com.theokanning.openai.assistants.message.MessageListSearchParameters;
 import com.theokanning.openai.assistants.message.MessageRequest;
 import com.theokanning.openai.assistants.message.ModifyMessageRequest;
-import com.theokanning.openai.assistants.run.*;
+import com.theokanning.openai.assistants.run.CreateThreadAndRunRequest;
+import com.theokanning.openai.assistants.run.ModifyRunRequest;
+import com.theokanning.openai.assistants.run.Run;
+import com.theokanning.openai.assistants.run.RunCreateRequest;
+import com.theokanning.openai.assistants.run.SubmitToolOutputsRequest;
 import com.theokanning.openai.assistants.run_step.RunStep;
 import com.theokanning.openai.assistants.thread.Thread;
 import com.theokanning.openai.assistants.thread.ThreadRequest;
@@ -26,7 +34,11 @@ import com.theokanning.openai.assistants.vector_store.VectorStoreRequest;
 import com.theokanning.openai.assistants.vector_store_file.VectorStoreFile;
 import com.theokanning.openai.assistants.vector_store_file_batch.VectorStoreFilesBatch;
 import com.theokanning.openai.assistants.vector_store_file_batch.VectorStoreFilesBatchRequest;
-import com.theokanning.openai.audio.*;
+import com.theokanning.openai.audio.CreateSpeechRequest;
+import com.theokanning.openai.audio.CreateTranscriptionRequest;
+import com.theokanning.openai.audio.CreateTranslationRequest;
+import com.theokanning.openai.audio.TranscriptionResult;
+import com.theokanning.openai.audio.TranslationResult;
 import com.theokanning.openai.batch.Batch;
 import com.theokanning.openai.batch.BatchRequest;
 import com.theokanning.openai.billing.BillingUsage;
@@ -36,7 +48,14 @@ import com.theokanning.openai.client.OpenAiApi;
 import com.theokanning.openai.completion.CompletionChunk;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.completion.CompletionResult;
-import com.theokanning.openai.completion.chat.*;
+import com.theokanning.openai.completion.chat.AssistantMessage;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
+import com.theokanning.openai.completion.chat.ChatCompletionChunk;
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionResult;
+import com.theokanning.openai.completion.chat.ChatFunction;
+import com.theokanning.openai.completion.chat.ChatFunctionCall;
+import com.theokanning.openai.completion.chat.ChatToolCall;
 import com.theokanning.openai.embedding.EmbeddingRequest;
 import com.theokanning.openai.embedding.EmbeddingResult;
 import com.theokanning.openai.file.File;
@@ -61,7 +80,12 @@ import com.theokanning.openai.service.assistant_stream.AssistantSSE;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-import okhttp3.*;
+import okhttp3.ConnectionPool;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
@@ -72,8 +96,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import javax.validation.constraints.NotNull;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -81,7 +103,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
@@ -275,6 +303,16 @@ public class OpenAiService {
     public Flowable<CompletionChunk> streamCompletion(CompletionRequest request) {
         request.setStream(true);
         return stream(api.createCompletionStream(request), CompletionChunk.class);
+    }
+
+    /**
+     * Upload a file using bytes.
+     */
+    public File uploadFile(String purpose, byte[] bytes, String filename) {
+        RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);
+        RequestBody fileBody = RequestBody.create(FileUtil.getFileUploadMediaType(filename), bytes);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", filename, fileBody);
+        return execute(api.uploadFile(purposeBody, body));
     }
 
     /**
