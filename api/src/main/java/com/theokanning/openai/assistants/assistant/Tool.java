@@ -45,7 +45,8 @@ import java.util.Map;
         @JsonSubTypes.Type(value = Tool.MyWeekReport.class, name = "my_week_report"),
         @JsonSubTypes.Type(value = Tool.WeekReportToMe.class, name = "week_report_to_me"),
         @JsonSubTypes.Type(value = Tool.ReadFiles.class, name = "read_files"),
-        @JsonSubTypes.Type(value = Tool.WebCrawler.class, name = "web_crawler")
+        @JsonSubTypes.Type(value = Tool.WebCrawler.class, name = "web_crawler"),
+        @JsonSubTypes.Type(value = Tool.AudioTranscription.class, name = "audio_transcription"),
 })
 public interface Tool {
     @JsonIgnore
@@ -381,6 +382,18 @@ public interface Tool {
         @Override
         public String getType() {
             return "web_crawler";
+        }
+    }
+
+    /**
+     * Audio Transcription
+     */
+    @Data
+    class AudioTranscription implements Tool {
+
+        @Override
+        public String getType() {
+            return "audio_transcription";
         }
     }
 

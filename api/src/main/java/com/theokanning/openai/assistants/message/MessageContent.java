@@ -2,6 +2,7 @@ package com.theokanning.openai.assistants.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.message.content.AudioData;
 import com.theokanning.openai.assistants.message.content.ImageFile;
 import com.theokanning.openai.assistants.message.content.Text;
 import com.theokanning.openai.completion.chat.ChatToolCall;
@@ -20,7 +21,7 @@ import lombok.Data;
 public class MessageContent {
 
     /**
-     * image_url/image_file/text/tool_call/tool_result
+     * image_url/image_file/text/tool_call/tool_result/audio
      */
     String type;
 
@@ -44,6 +45,10 @@ public class MessageContent {
     @JsonProperty("image_url")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     ImageUrl imageUrl;
+
+    @JsonProperty("audio_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    AudioData audioData;
 
     @JsonProperty("tool_call")
     @JsonInclude(JsonInclude.Include.NON_NULL)
