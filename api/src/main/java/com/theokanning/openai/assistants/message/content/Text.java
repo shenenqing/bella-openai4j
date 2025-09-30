@@ -24,5 +24,5 @@ public class Text {
     /**
      * Text annotations that show additional details
      */
-    List<Annotation> annotations;
+    List<com.theokanning.openai.response.content.Annotation> annotations;
 }

@@ -39,6 +39,23 @@ public class FileCitation extends Annotation {
     private String filename;
 
     /**
+     * 切片Id
+     */
+    @JsonProperty("chunk_id")
+    private String chunkId;
+
+    /**
+     * 分数
+     */
+    private Double score;
+
+    /**
+     * 标签
+     */
+    @JsonProperty("file_tag")
+    private String fileTag;
+
+    /**
      * Position in file list.
      */
     private int index;
