@@ -36,7 +36,7 @@ public class FilePath extends Annotation {
     /**
      * Index position.
      */
-    private int index;
+    private Integer index;
 
     @Override
     public String getType() {

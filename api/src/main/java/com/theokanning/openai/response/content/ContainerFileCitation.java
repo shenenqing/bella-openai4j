@@ -48,13 +48,13 @@ public class ContainerFileCitation extends Annotation {
      * Character start position.
      */
     @JsonProperty("start_index")
-    private int startIndex;
+    private Integer startIndex;
 
     /**
      * Character end position.
      */
     @JsonProperty("end_index")
-    private int endIndex;
+    private Integer endIndex;
 
     @Override
     public String getType() {

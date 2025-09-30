@@ -1,5 +1,6 @@
 package com.theokanning.openai.response.content;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class URLCitation extends Annotation {
 
     /**
@@ -39,13 +41,13 @@ public class URLCitation extends Annotation {
      * Character start position in text.
      */
     @JsonProperty("start_index")
-    private int startIndex;
+    private Integer startIndex;
 
     /**
      * Character end position in text.
      */
     @JsonProperty("end_index")
-    private int endIndex;
+    private Integer endIndex;
 
     @Override
     public String getType() {

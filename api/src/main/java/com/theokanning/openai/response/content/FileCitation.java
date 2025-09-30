@@ -58,7 +58,7 @@ public class FileCitation extends Annotation {
     /**
      * Position in file list.
      */
-    private int index;
+    private Integer index;
 
     @Override
     public String getType() {
