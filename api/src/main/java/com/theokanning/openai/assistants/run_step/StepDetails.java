@@ -2,9 +2,9 @@ package com.theokanning.openai.assistants.run_step;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.message.content.Annotation;
 import com.theokanning.openai.assistants.run.MessageCreation;
 import com.theokanning.openai.assistants.run.ToolCall;
-import com.theokanning.openai.response.content.Annotation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -42,6 +42,13 @@ public class Annotation {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     FileCitation fileCitation;
 
+    @JsonProperty("url_citation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    URLCitation urlCitation;
+
+    @JsonProperty("container_file_citation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    ContainerFileCitation containerFileCitation;
 
     @JsonProperty("start_index")
     Integer startIndex;
