@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 /**
  * An annotation for a text Message
  * <p>
@@ -47,5 +49,6 @@ public class Annotation {
     @JsonProperty("end_index")
     Integer endIndex;
 
+    Map<String, String> metadata;
 
 }
