@@ -2,6 +2,7 @@ package com.theokanning.openai.assistants.run_step;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.message.content.Annotation;
 import com.theokanning.openai.assistants.run.MessageCreation;
 import com.theokanning.openai.assistants.run.ToolCall;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,8 @@ public class StepDetails {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("redacted_reasoning_content")
     private String redactedReasoningContent;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Annotation> annotations;
 
 }
