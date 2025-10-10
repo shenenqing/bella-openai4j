@@ -1,6 +1,7 @@
 package com.theokanning.openai.response.tool.definition;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.assistant.Tool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -105,5 +106,45 @@ public class MCPTool implements ToolDefinition {
          * Tools that never require approval.
          */
         private MCPToolFilter never;
+    }
+
+    @Override
+    public Tool getRealTool() {
+        return new Tool.MCP(this);
+    }
+
+    public boolean allowed(String toolName) {
+        if(allowedTools == null) {
+            return true;
+        }
+        if(allowedTools instanceof List) {
+            return ((List<?>) allowedTools).contains(toolName);
+        }
+        if(allowedTools instanceof MCPToolFilter) {
+            MCPToolFilter filter = (MCPToolFilter) allowedTools;
+            return filter.getToolNames() == null || filter.getToolNames().contains(toolName);
+        }
+        return true;
+    }
+
+    public boolean needApproval(String toolName) {
+        if(requireApproval == null) {
+            return false;
+        }
+        if(requireApproval instanceof String) {
+            if("always".equalsIgnoreCase((String) requireApproval)) {
+                return true;
+            }
+            return false;
+        }
+        if(requireApproval instanceof MCPToolApprovalFilter) {
+            MCPToolFilter always = ((MCPToolApprovalFilter) requireApproval).getAlways();
+            if(always == null) {
+                return false;
+            } else {
+                return always.getToolNames() != null && always.getToolNames().contains(toolName);
+            }
+        }
+        return false;
     }
 }

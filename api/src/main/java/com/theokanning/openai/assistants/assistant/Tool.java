@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.theokanning.openai.response.tool.definition.CustomTool;
 import com.theokanning.openai.response.tool.definition.ImageGenerationTool;
 import com.theokanning.openai.response.tool.definition.LocalShellTool;
+import com.theokanning.openai.response.tool.definition.MCPTool;
 import com.theokanning.openai.response.tool.definition.ToolDefinition;
 import com.theokanning.openai.response.tool.definition.WebSearchTool;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import java.util.Map;
  **/
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = Tool.MCP.class, name = "mcp"),
         @JsonSubTypes.Type(value = Tool.Custom.class, name = "custom_tool"),
         @JsonSubTypes.Type(value = Tool.LocalShell.class, name = "local_shell"),
         @JsonSubTypes.Type(value = Tool.Function.class, name = "function"),
@@ -64,6 +66,24 @@ public interface Tool {
 
     default ToolDefinition definition() {
         return null;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class MCP implements Tool {
+
+        private MCPTool definition;
+
+        @Override
+        public String getType() {
+            return "mcp";
+        }
+
+        @Override
+        public ToolDefinition definition() {
+            return definition;
+        }
     }
 
     @Data
