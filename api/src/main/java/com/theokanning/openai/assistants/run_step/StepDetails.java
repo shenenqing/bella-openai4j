@@ -47,6 +47,10 @@ public class StepDetails {
     private String redactedReasoningContent;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("approval_ids")
+    private List<String> approvalIds;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Annotation> annotations;
 
 }

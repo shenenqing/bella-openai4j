@@ -2,12 +2,14 @@ package com.theokanning.openai.assistants.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.theokanning.openai.assistants.message.content.Approval;
 import com.theokanning.openai.assistants.message.content.AudioData;
 import com.theokanning.openai.assistants.message.content.ImageFile;
 import com.theokanning.openai.assistants.message.content.Text;
 import com.theokanning.openai.completion.chat.ChatToolCall;
 import com.theokanning.openai.completion.chat.ImageUrl;
 import com.theokanning.openai.completion.chat.ToolMessage;
+import com.theokanning.openai.response.tool.MCPApprovalResponse;
 import com.theokanning.openai.response.tool.ToolCall;
 import lombok.Data;
 
@@ -21,7 +23,7 @@ import lombok.Data;
 public class MessageContent {
 
     /**
-     * image_url/image_file/text/tool_call/tool_result/audio
+     * image_url/image_file/text/tool_call/tool_result/audio/clear/approval
      */
     String type;
 
@@ -57,6 +59,10 @@ public class MessageContent {
     @JsonProperty("tool_result")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     ToolMessage toolResult;
+
+    @JsonProperty("approval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    Approval approval;
 
     public boolean empty() {
         switch (type) {

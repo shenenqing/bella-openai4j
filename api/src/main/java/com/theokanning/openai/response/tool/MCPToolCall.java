@@ -47,6 +47,12 @@ public class MCPToolCall extends ToolCall {
     private String arguments;
 
     /**
+     * Unique identifier for the MCP tool call approval request. Include this value in a subsequent mcp_approval_response input to approve or reject the corresponding tool call.
+     */
+    @JsonProperty("approval_request_id")
+    private String approvalRequestId;
+
+    /**
      * The output from the tool call.
      */
     private String output;
