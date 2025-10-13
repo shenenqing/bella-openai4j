@@ -14,7 +14,7 @@ public class ChatToolCall {
      * @see https://community.openai.com/t/gpt-4-turbo-model-function-call-doesnt-work/712218
      */
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    int index;
+    Integer index;
 
     /**
      * The ID of the tool call
@@ -32,7 +32,7 @@ public class ChatToolCall {
      */
     ChatFunctionCall function;
 
-    public ChatToolCall(int index, String id, String type) {
+    public ChatToolCall(Integer index, String id, String type) {
         this.index = index;
         this.id = id;
         this.type = type;
