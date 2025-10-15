@@ -6,7 +6,6 @@ import com.theokanning.openai.service.OpenAiService;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * @author LiangTao
@@ -27,7 +26,6 @@ public class EmbeddingExample {
                 .build();
         List<Embedding> embeddings = service.createEmbeddings(embeddingRequest).getData();
         Object embedding = embeddings.get(0).getEmbedding();
-        assertInstanceOf(List.class, embedding);
         List<Double> list = (List<Double>) embedding;
     }
 }

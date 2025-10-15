@@ -6,7 +6,7 @@
 
     <groupId>io.github.ke</groupId>
     <artifactId>example</artifactId>
-    <version>0.23.19</version>
+    <version>0.23.83</version>
     <name>example</name>
 
     <properties>
@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.ke</groupId>
-            <artifactId>service</artifactId>
-            <version>0.23.19</version>
+            <groupId>top.bella</groupId>
+            <artifactId>openai-service</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

@@ -412,5 +412,28 @@ public interface OpenAiApi {
 
     @POST("web/extract")
     Single<WebExtractResponse> webExtract(@Body WebExtractRequest request);
+
+    // Response API operations
+    /**
+     * Create a new response (non-streaming mode).
+     * POST /v1/responses
+     */
+    @POST("responses")
+    Single<com.theokanning.openai.response.Response> createResponse(@Body com.theokanning.openai.response.CreateResponseRequest request);
+
+    /**
+     * Create a new response (streaming mode with SSE).
+     * POST /v1/responses
+     */
+    @Streaming
+    @POST("responses")
+    Call<ResponseBody> createResponseStream(@Body com.theokanning.openai.response.CreateResponseRequest request);
+
+    /**
+     * Retrieve a response by ID.
+     * GET /v1/responses/{response_id}
+     */
+    @GET("responses/{response_id}")
+    Single<com.theokanning.openai.response.Response> getResponse(@Path("response_id") String responseId);
 }
 

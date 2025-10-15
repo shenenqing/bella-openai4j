@@ -77,6 +77,8 @@ import com.theokanning.openai.queue.Take;
 import com.theokanning.openai.queue.Task;
 import com.theokanning.openai.service.assistant_stream.AssistantResponseBodyCallback;
 import com.theokanning.openai.service.assistant_stream.AssistantSSE;
+import com.theokanning.openai.service.response_stream.ResponseResponseBodyCallback;
+import com.theokanning.openai.service.response_stream.ResponseSSE;
 import com.theokanning.openai.web.WebCrawlRequest;
 import com.theokanning.openai.web.WebCrawlResponse;
 import com.theokanning.openai.web.WebExtractRequest;
@@ -728,6 +730,50 @@ public class OpenAiService {
 
     public WebExtractResponse webExtract(WebExtractRequest webExtractRequest) {
         return execute(api.webExtract(webExtractRequest));
+    }
+
+    // Response API operations
+
+    /**
+     * Create a response (non-streaming mode).
+     *
+     * @param request The create response request
+     * @return The created response object
+     */
+    public com.theokanning.openai.response.Response createResponse(com.theokanning.openai.response.CreateResponseRequest request) {
+        return execute(api.createResponse(request));
+    }
+
+    /**
+     * Create a response with streaming (SSE protocol).
+     * The stream parameter in the request will be automatically set to true.
+     *
+     * @param request The create response request
+     * @return A Flowable of ResponseSSE events
+     */
+    public Flowable<ResponseSSE> createResponseStream(com.theokanning.openai.response.CreateResponseRequest request) {
+        request.setStream(true);
+        return responseStream(api.createResponseStream(request));
+    }
+
+    /**
+     * Retrieve a response by ID.
+     *
+     * @param responseId The response ID
+     * @return The response object
+     */
+    public com.theokanning.openai.response.Response getResponse(String responseId) {
+        return execute(api.getResponse(responseId));
+    }
+
+    /**
+     * Helper method to create a Flowable from Response API SSE stream.
+     *
+     * @param apiCall The Retrofit call for streaming
+     * @return A Flowable of ResponseSSE events
+     */
+    public static Flowable<ResponseSSE> responseStream(Call<ResponseBody> apiCall) {
+        return Flowable.create(emitter -> apiCall.enqueue(new ResponseResponseBodyCallback(emitter)), BackpressureStrategy.BUFFER);
     }
 
     /**
