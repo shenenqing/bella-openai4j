@@ -77,6 +77,12 @@ import com.theokanning.openai.queue.Take;
 import com.theokanning.openai.queue.Task;
 import com.theokanning.openai.service.assistant_stream.AssistantResponseBodyCallback;
 import com.theokanning.openai.service.assistant_stream.AssistantSSE;
+import com.theokanning.openai.web.WebCrawlRequest;
+import com.theokanning.openai.web.WebCrawlResponse;
+import com.theokanning.openai.web.WebExtractRequest;
+import com.theokanning.openai.web.WebExtractResponse;
+import com.theokanning.openai.web.WebSearchRequest;
+import com.theokanning.openai.web.WebSearchResponse;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -710,6 +716,18 @@ public class OpenAiService {
     public Flowable<AssistantSSE> submitToolOutputsStream(String threadId, String runId, SubmitToolOutputsRequest submitToolOutputsRequest) {
         submitToolOutputsRequest.setStream(true);
         return assistantStream(api.submitToolOutputsStream(threadId, runId, submitToolOutputsRequest));
+    }
+
+    public WebSearchResponse webSearch(WebSearchRequest webSearchRequest) {
+        return execute(api.webSearch(webSearchRequest));
+    }
+
+    public WebCrawlResponse webCrawl(WebCrawlRequest webCrawlRequest) {
+        return execute(api.webCrawl(webCrawlRequest));
+    }
+
+    public WebExtractResponse webExtract(WebExtractRequest webExtractRequest) {
+        return execute(api.webExtract(webExtractRequest));
     }
 
     /**

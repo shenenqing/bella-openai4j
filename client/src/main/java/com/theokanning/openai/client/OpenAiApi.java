@@ -47,6 +47,12 @@ import com.theokanning.openai.queue.Register;
 import com.theokanning.openai.queue.Put;
 import com.theokanning.openai.queue.Take;
 import com.theokanning.openai.queue.Task;
+import com.theokanning.openai.web.WebCrawlRequest;
+import com.theokanning.openai.web.WebCrawlResponse;
+import com.theokanning.openai.web.WebExtractRequest;
+import com.theokanning.openai.web.WebExtractResponse;
+import com.theokanning.openai.web.WebSearchRequest;
+import com.theokanning.openai.web.WebSearchResponse;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -398,5 +404,13 @@ public interface OpenAiApi {
     @POST("queue/{task_id}/complete")
     Single<String> completeTask(@Path("task_id") String taskId, @Body Map<String, Object> data);
 
+    @POST("web/search")
+    Single<WebSearchResponse> webSearch(@Body WebSearchRequest request);
+
+    @POST("web/crawl")
+    Single<WebCrawlResponse> webCrawl(@Body WebCrawlRequest request);
+
+    @POST("web/extract")
+    Single<WebExtractResponse> webExtract(@Body WebExtractRequest request);
 }
 
