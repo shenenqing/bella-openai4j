@@ -286,12 +286,15 @@ public class OpenAiService {
     }
 
     public void retrieveFileContentAndSave(String fileId, Path filePath) throws IOException {
-        InputStream inputStream = execute(api.retrieveFileContent(fileId)).byteStream();
+        ResponseBody responseBody = execute(api.retrieveFileContent(fileId));
         Path parentDir = filePath.getParent();
         if (parentDir != null) {
             Files.createDirectories(parentDir);
         }
-        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        try (BufferedSink sink = Okio.buffer(Okio.sink(filePath.toFile()))) {
+            sink.writeAll(responseBody.source());
+        }
     }
 
     public ResponseBody retrieveDomTreeContent(String fileId) {
