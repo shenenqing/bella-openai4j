@@ -33,6 +33,7 @@ import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.embedding.EmbeddingRequest;
 import com.theokanning.openai.embedding.EmbeddingResult;
 import com.theokanning.openai.file.File;
+import com.theokanning.openai.file.FileUrl;
 import com.theokanning.openai.fine_tuning.FineTuningEvent;
 import com.theokanning.openai.fine_tuning.FineTuningJob;
 import com.theokanning.openai.fine_tuning.FineTuningJobCheckpoint;
@@ -113,6 +114,9 @@ public interface OpenAiApi {
     @Streaming
     @GET("files/{file_id}/dom-tree/content")
     Single<ResponseBody> retrieveDomTreeContent(@Path("file_id") String fileId);
+
+    @GET("files/{file_id}/url")
+    Single<FileUrl> retrieveFileUrl(@Path("file_id") String fileId);
 
     @POST("fine_tuning/jobs")
     Single<FineTuningJob> createFineTuningJob(@Body FineTuningJobRequest request);

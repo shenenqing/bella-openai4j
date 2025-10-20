@@ -59,6 +59,7 @@ import com.theokanning.openai.completion.chat.ChatToolCall;
 import com.theokanning.openai.embedding.EmbeddingRequest;
 import com.theokanning.openai.embedding.EmbeddingResult;
 import com.theokanning.openai.file.File;
+import com.theokanning.openai.file.FileUrl;
 import com.theokanning.openai.fine_tuning.FineTuningEvent;
 import com.theokanning.openai.fine_tuning.FineTuningJob;
 import com.theokanning.openai.fine_tuning.FineTuningJobCheckpoint;
@@ -299,6 +300,10 @@ public class OpenAiService {
 
     public ResponseBody retrieveDomTreeContent(String fileId) {
         return execute(api.retrieveDomTreeContent(fileId));
+    }
+
+    public FileUrl retrieveFileUrl(String fileId) {
+        return execute(api.retrieveFileUrl(fileId));
     }
 
     public FineTuningJob createFineTuningJob(FineTuningJobRequest request) {
