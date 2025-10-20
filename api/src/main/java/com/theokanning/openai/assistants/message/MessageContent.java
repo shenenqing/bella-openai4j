@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.theokanning.openai.assistants.message.content.Approval;
 import com.theokanning.openai.assistants.message.content.AudioData;
+import com.theokanning.openai.assistants.message.content.AudioURL;
 import com.theokanning.openai.assistants.message.content.ImageFile;
 import com.theokanning.openai.assistants.message.content.Text;
 import com.theokanning.openai.completion.chat.ChatToolCall;
@@ -23,7 +24,7 @@ import lombok.Data;
 public class MessageContent {
 
     /**
-     * image_url/image_file/text/tool_call/tool_result/audio/clear/approval
+     * image_url/image_file/text/tool_call/tool_result/audio/audio_url/clear/approval
      */
     String type;
 
@@ -51,6 +52,13 @@ public class MessageContent {
     @JsonProperty("audio_data")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     AudioData audioData;
+
+    /**
+     * 只用于消息存储
+     */
+    @JsonProperty("audio_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    AudioURL audioURL;
 
     @JsonProperty("tool_call")
     @JsonInclude(JsonInclude.Include.NON_NULL)
